@@ -1,0 +1,73 @@
+name: Testing CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    name: Install dependencies
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: yarn install --immutable
+
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint / eslint
+    needs: [install]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+      - run: yarn install --immutable
+      - name: Lint
+        run: yarn workspaces foreach run lint
+
+  prettier:
+    runs-on: ubuntu-latest
+    name: Prettier
+    needs: [install]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+      - run: yarn install --immutable
+      - name: Prettier
+        run: yarn prettier
+
+  unit-test-core:
+    uses: ./.github/workflows/unit-test-workflow.yml
+    needs: [install]
+    with:
+      package: tasmota-commands-core
+
+  unit-test-http:
+    uses: ./.github/workflows/unit-test-workflow.yml
+    needs: [install]
+    with:
+      package: tasmota-commands-http
+
+  unit-test-mqtt:
+    uses: ./.github/workflows/unit-test-workflow.yml
+    needs: [install]
+    with:
+      package: tasmota-commands-mqtt
+
+  unit-test-homebridge:
+    uses: ./.github/workflows/unit-test-workflow.yml
+    needs: [install]
+    with:
+      package: tasmota-commands-homebridge

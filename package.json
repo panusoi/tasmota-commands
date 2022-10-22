@@ -1,0 +1,34 @@
+{
+  "name": "tasmota-commands-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Panu Soisenniemi",
+  "license": "MIT",
+  "homepage": "https://github.com/panusoi/tasmota-commands#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panusoi/tasmota-commands.git"
+  },
+  "bugs": {
+    "url": "https://github.com/panusoi/tasmota-commands/issues"
+  },
+  "workspaces": [
+    "packages/**"
+  ],
+  "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "g:watch": "cd $INIT_CWD && tsc --watch",
+    "g:build": "cd $INIT_CWD && tsc --build",
+    "g:test": "cd $INIT_CWD && jest",
+    "g:test-ci": "cd $INIT_CWD && jest --ci --testResultsProcessor=\"jest-junit\" --watchAll=false --coverage",
+    "g:lint": "cd $INIT_CWD && eslint src/**/*.{js,ts,json}",
+    "g:format": "prettier --write .",
+    "g:prettier": "prettier --check .",
+    "prettier": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  }
+}

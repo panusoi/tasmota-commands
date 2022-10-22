@@ -1,0 +1,26 @@
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    name: Unit tests (${{ inputs.package }})
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+      - run: yarn install --immutable
+      - name: Test
+        run: yarn workspace ${{ inputs.package }} test-ci
+      - name: Test Summary
+        uses: test-summary/action@77bb5a9f9c572416423f9a157cbf1159c1e75a4c
+        with:
+          paths: '**/*/junit.xml'
+        if: always()
