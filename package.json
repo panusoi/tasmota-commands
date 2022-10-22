@@ -17,6 +17,7 @@
   ],
   "packageManager": "yarn@3.2.4",
   "scripts": {
+    "prepare": "husky install",
     "g:watch": "cd $INIT_CWD && tsc --watch",
     "g:build": "cd $INIT_CWD && tsc --build",
     "g:test": "cd $INIT_CWD && jest",
@@ -28,7 +29,18 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
+  },
+  "lint-staged": {
+    "packages/**/src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{graphql,gql,yml,yaml,json,md}": [
+      "prettier --write"
+    ]
   }
 }
