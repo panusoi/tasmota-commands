@@ -4,7 +4,7 @@
   "private": true,
   "author": "Panu Soisenniemi",
   "license": "MIT",
-  "homepage": "https://github.com/panusoi/tasmota-commands/packages/tasmota-commands-homebridge#readme",
+  "homepage": "https://github.com/panusoi/tasmota-commands#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panusoi/tasmota-commands.git"
