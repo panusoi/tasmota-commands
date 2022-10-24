@@ -15,6 +15,7 @@
   },
   "packageManager": "yarn@3.2.4",
   "scripts": {
+    "postinstall": "yarn build",
     "watch": "yarn g:watch",
     "build": "yarn g:build",
     "test": "yarn g:test",
