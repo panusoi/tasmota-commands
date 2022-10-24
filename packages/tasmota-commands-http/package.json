@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Panu Soisenniemi",
+  "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://github.com/panusoi/tasmota-commands#readme",
   "repository": {

@@ -1,3 +1,3 @@
-import { HelloWorld } from 'tasmota-commands-core';
+import TasmotaCommandsHttp from './tasmota-commands-http';
 
-console.log(HelloWorld);
+export { TasmotaCommandsHttp };
