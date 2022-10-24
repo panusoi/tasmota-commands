@@ -70,4 +70,4 @@ jobs:
     uses: ./.github/workflows/unit-test-workflow.yml
     needs: [install]
     with:
-      package: tasmota-commands-homebridge
+      package: homebridge-tasmota-commands
