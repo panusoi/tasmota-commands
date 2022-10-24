@@ -1,0 +1,31 @@
+{
+  "pluginAlias": "tasmota-simple-light-bulb",
+  "pluginType": "accessory",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "required": true,
+        "title": "Name"
+      },
+      "address": {
+        "type": "string",
+        "required": true,
+        "title": "IP Address"
+      },
+      "username": {
+        "type": "string",
+        "required": false,
+        "title": "Username",
+        "description": "Username"
+      },
+      "password": {
+        "type": "string",
+        "required": false,
+        "title": "Password",
+        "description": "Password"
+      }
+    }
+  }
+}

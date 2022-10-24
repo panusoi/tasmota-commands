@@ -1,3 +1,11 @@
-import { HelloWorld } from 'tasmota-commands-core';
+import { API } from 'homebridge';
+import { accessories } from './accessory';
 
-console.log(HelloWorld);
+/**
+ * Registers the accessories with Homebridge
+ */
+export = (api: API) => {
+  accessories.forEach((accessory) => {
+    api.registerAccessory(accessory.name, accessory.accessoryConstructor);
+  });
+};
