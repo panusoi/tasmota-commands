@@ -1,30 +1,75 @@
 {
-  "pluginAlias": "tasmota-simple-light-bulb",
+  "pluginAlias": "tasmota-commands",
   "pluginType": "accessory",
   "schema": {
     "type": "object",
     "properties": {
       "name": {
+        "title": "Name",
         "type": "string",
+        "required": true
+      },
+      "protocol": {
+        "title": "Protocol",
+        "type": "string",
+        "default": "http",
+        "oneOf": [{ "title": "Http", "enum": ["http"] }],
+        "required": true
+      },
+      "preset": {
+        "title": "Preset",
+        "type": "string",
+        "default": "lightbulb-on-off",
+        "oneOf": [
+          { "title": "Power switch", "enum": ["switch-on-off"] },
+          { "title": "Lightbulb (on/off)", "enum": ["lightbulb-on-off"] },
+          { "title": "Custom", "enum": ["custom"] }
+        ],
+        "required": true
+      },
+      "type": {
+        "title": "Type",
+        "type": "string",
+        "default": "lightbulb",
+        "oneOf": [
+          { "title": "Lightbulb", "enum": ["lightbulb"] },
+          { "title": "Switch", "enum": ["switch"] }
+        ],
         "required": true,
-        "title": "Name"
+        "condition": {
+          "functionBody": "return model.preset === 'custom';"
+        }
+      },
+      "customPresetCharacteristics": {
+        "title": "Characteristics",
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "title": "Characteristics",
+          "type": "string",
+          "enum": ["On"]
+        },
+        "required": true,
+        "condition": {
+          "functionBody": "return model.preset === 'custom';"
+        }
       },
       "address": {
+        "title": "IP Address",
         "type": "string",
-        "required": true,
-        "title": "IP Address"
+        "required": true
       },
       "username": {
-        "type": "string",
-        "required": false,
         "title": "Username",
-        "description": "Username"
+        "description": "Username",
+        "type": "string",
+        "required": false
       },
       "password": {
-        "type": "string",
-        "required": false,
         "title": "Password",
-        "description": "Password"
+        "description": "Password",
+        "type": "string",
+        "required": false
       }
     }
   }
