@@ -1,11 +1,9 @@
 import { API } from 'homebridge';
-import { accessories } from './accessory';
+import TasmotaCommandsAccessory from './accessory/accessory';
 
 /**
- * Registers the accessories with Homebridge
+ * Registers the accessory with Homebridge
  */
 export = (api: API) => {
-  accessories.forEach((accessory) => {
-    api.registerAccessory(accessory.name, accessory.accessoryConstructor);
-  });
+  api.registerAccessory('tasmota-commands', TasmotaCommandsAccessory);
 };
