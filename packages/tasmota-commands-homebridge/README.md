@@ -98,11 +98,11 @@ Sample configuration using custom preset
 
 ### Preset parameters
 
-| Parameter                   | Required              | Accepted values                               | Description                                                                                      |
-| --------------------------- | --------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| preset                      | `yes`                 | `switch-on-off`, `lightbulb-on-off`, `custom` | Predefined characteristic sets. Using `custom` you can manually set what characteristics to use. |
-| type                        | if preset is `custom` | `lightbulb`, `switch`                         | Device type                                                                                      |
-| customPresetCharacteristics | if preset is `custom` |                                               | Note that not all of characteristics work together with each other                               |
+| Parameter                   | Required              | Accepted values                                                                                  | Description                                                                                      |
+| --------------------------- | --------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| preset                      | `yes`                 | `switch-on-off`, `lightbulb-on-off`, `lightbulb-brightness`, `lightbulb-brightness-ct`, `custom` | Predefined characteristic sets. Using `custom` you can manually set what characteristics to use. |
+| type                        | if preset is `custom` | `lightbulb`, `switch`                                                                            | Device type                                                                                      |
+| customPresetCharacteristics | if preset is `custom` | Set/array of `On`, `Brightness`, `ColorTemperature`                                              | Note that not all of characteristics may not work together with each other                       |
 
 ## [Roadmap](#../../README.md#roadmap)
 

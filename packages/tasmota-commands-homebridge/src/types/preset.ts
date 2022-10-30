@@ -1,7 +1,12 @@
 import { isNotNullOrUndefined } from 'tasmota-commands-core';
 import { CharacteristicName, isCharacteristicNamesArray } from './characteristic';
 
-const presets = ['switch-on-off', 'lightbulb-on-off'] as const;
+const presets = [
+  'switch-on-off',
+  'lightbulb-on-off',
+  'lightbulb-brightness-ct',
+  'lightbulb-brightness',
+] as const;
 
 const accessoryTypes = ['lightbulb', 'switch'] as const;
 
@@ -34,9 +39,13 @@ export const isCustomPreset = (value: unknown): value is CustomPreset =>
 export const presetAccessoryTypeMap: Record<Preset['preset'], AccessoryType> = {
   'switch-on-off': 'switch',
   'lightbulb-on-off': 'lightbulb',
+  'lightbulb-brightness': 'lightbulb',
+  'lightbulb-brightness-ct': 'lightbulb',
 };
 
 export const presetCharacteristicMap: Record<Preset['preset'], CharacteristicName[]> = {
   'switch-on-off': ['On'],
   'lightbulb-on-off': ['On'],
+  'lightbulb-brightness': ['On', 'Brightness'],
+  'lightbulb-brightness-ct': ['On', 'Brightness', 'ColorTemperature'],
 };
