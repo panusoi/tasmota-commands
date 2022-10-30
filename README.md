@@ -90,6 +90,7 @@ commands.Control.setPower0('on');
 - Other
   - [ ] Update documentation
   - [ ] Generated api documentation
+  - [x] Build CJS and ESM modules
   - [ ] Versioning management with [Changesets](https://github.com/changesets/changesets)
 
 ## Contribution

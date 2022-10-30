@@ -5,10 +5,8 @@
     "outDir": "./dist/cjs",
     "declarationDir": "./dist/types",
     "rootDir": "./src",
-    "disableSourceOfProjectReferenceRedirect": true,
     "declaration": true
   },
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts"],
-  "references": [{ "path": "../tasmota-commands-core" }]
+  "exclude": ["src/**/*.test.ts"]
 }

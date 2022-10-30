@@ -23,7 +23,8 @@
   "scripts": {
     "dev": "yarn build && nodemon",
     "watch": "yarn g:watch",
-    "build": "yarn g:build",
+    "build": "tsc --build",
+    "prepack": "rimraf $INIT_CWD/dist && yarn test-ci && tsc --build",
     "test": "yarn g:test",
     "test-ci": "yarn g:test-ci",
     "lint": "yarn g:lint",
