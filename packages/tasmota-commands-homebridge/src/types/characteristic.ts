@@ -4,9 +4,9 @@ import {
   CharacteristicValue,
   Logger,
 } from 'homebridge';
-import { TasmotaCommands } from 'tasmota-commands-core';
+import { TasmotaCommands, TasmotaState } from 'tasmota-commands-core';
 
-export const characteristicNames = ['On'] as const;
+export const characteristicNames = ['On', 'Brightness', 'ColorTemperature'] as const;
 
 export type CharacteristicName = typeof characteristicNames[number];
 
@@ -29,17 +29,9 @@ export type CreateCharacteristicListenerArgs = {
   verbose?: true;
   commands: TasmotaCommands;
   logger: Logger;
-  getCurrentState: () => State | null;
-  setCurrentState: <T extends keyof State>(property: keyof State, value: State[T]) => State;
+  getCurrentState: () => TasmotaState;
 };
 
 export type CreateCharacteristicListener = (
   args: CreateCharacteristicListenerArgs,
 ) => CharacteristicListeners;
-
-// TODO: This should come from core package
-export type State = {
-  power: boolean;
-  brightness: number;
-  ct: number;
-};

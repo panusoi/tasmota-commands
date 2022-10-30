@@ -1,22 +1,22 @@
 import { HAPStatus } from 'homebridge';
+import { TasmotaState } from 'tasmota-commands-core';
 import { CreateCharacteristicListener } from '../types/characteristic';
+
+const isPowerOn = (value: TasmotaState['POWER']): boolean =>
+  value !== undefined && (value === 1 || value === 'ON');
 
 const createOnListener: CreateCharacteristicListener = ({
   verbose,
   logger,
   commands,
   getCurrentState,
-  setCurrentState,
 }) => {
-  verbose && logger.debug('Create On characteristic listener');
+  verbose && logger.debug("Creating 'On' characteristic listener");
   return {
     set: (value, callback) => {
-      commands
-        .sendPowerToggle()
+      commands.Control.setPower0(value === true ? 'on' : 'off')
         .then((response) => {
-          if (response && typeof response === 'object' && 'POWER' in response) {
-            const isOn = (response as Record<string, unknown>).POWER === 'ON';
-            setCurrentState('power', isOn);
+          if (response?.POWER) {
             callback(HAPStatus.SUCCESS);
           } else {
             callback(HAPStatus.SERVICE_COMMUNICATION_FAILURE);
@@ -28,8 +28,8 @@ const createOnListener: CreateCharacteristicListener = ({
         });
     },
     get: (callback) => {
-      verbose && logger?.debug('Current on state: ', getCurrentState()?.power);
-      callback(HAPStatus.SUCCESS, getCurrentState()?.power);
+      verbose && logger?.debug('Current on state: ', getCurrentState()?.POWER);
+      callback(HAPStatus.SUCCESS, isPowerOn(getCurrentState()?.POWER));
     },
   };
 };

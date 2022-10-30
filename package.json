@@ -25,6 +25,7 @@
     "g:lint": "cd $INIT_CWD && eslint src/**/*.{js,ts,json}",
     "g:format": "prettier --write .",
     "g:prettier": "prettier --check .",
+    "test": "yarn workspaces foreach run test",
     "prettier": "prettier --check .",
     "format": "prettier --write ."
   },

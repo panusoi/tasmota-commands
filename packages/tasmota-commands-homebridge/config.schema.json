@@ -22,6 +22,11 @@
         "oneOf": [
           { "title": "Power switch", "enum": ["switch-on-off"] },
           { "title": "Lightbulb (on/off)", "enum": ["lightbulb-on-off"] },
+          { "title": "Lightbulb (brightness)", "enum": ["lightbulb-brightness"] },
+          {
+            "title": "Lightbulb (brightness and color temperature)",
+            "enum": ["lightbulb-brightness-ct"]
+          },
           { "title": "Custom", "enum": ["custom"] }
         ],
         "required": true
@@ -44,7 +49,7 @@
         "items": {
           "title": "Characteristics",
           "type": "string",
-          "enum": ["On"]
+          "enum": ["On", "Brightness", "ColorTemperature"]
         },
         "condition": {
           "functionBody": "return model.preset === 'custom';"

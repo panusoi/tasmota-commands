@@ -1,5 +1,5 @@
 import http from 'http';
-import { SendCommandHandler } from 'tasmota-commands-core/src/types';
+import { CommandHandler } from 'tasmota-commands-core';
 import { getCommandPath } from './utils/path';
 
 export type HttpRequestFunction = <T>(options: http.RequestOptions) => Promise<T>;
@@ -10,17 +10,21 @@ export type TasmotaHttpOptions = {
   readonly password?: string;
 };
 
-export const getHttpSendCommandHandler = (opts: TasmotaHttpOptions): SendCommandHandler => {
+export const getHttpCommandHandler = (opts: TasmotaHttpOptions): CommandHandler => {
   const { address, username, password } = opts;
 
-  const handler: SendCommandHandler = (opts) => {
-    const path = getCommandPath({ username, password, cmnd: 'Power TOGGLE' });
+  const handler: CommandHandler = ({ command, payload, logger }) => {
+    const cmnd = payload === null ? command : `${command} ${payload}`;
 
-    if (opts.debug) {
-      console.debug(`Sending command Power TOGGLE`);
-    }
+    const path = getCommandPath({
+      username,
+      password,
+      cmnd,
+    });
 
-    return defaultHttpRequestFunction({
+    logger?.debug(`Sending command ${cmnd}`);
+
+    return httpRequestFunction({
       hostname: address,
       path: path,
     });
@@ -29,9 +33,7 @@ export const getHttpSendCommandHandler = (opts: TasmotaHttpOptions): SendCommand
   return handler;
 };
 
-const defaultHttpRequestFunction: HttpRequestFunction = <T>(
-  options: http.RequestOptions,
-): Promise<T> =>
+const httpRequestFunction: HttpRequestFunction = <T>(options: http.RequestOptions): Promise<T> =>
   new Promise((resolve, reject) => {
     const req = http.request({ ...options, method: 'GET' }, (res) => {
       if (res.statusCode === undefined || res.statusCode < 200 || res.statusCode >= 300) {
@@ -61,4 +63,4 @@ const defaultHttpRequestFunction: HttpRequestFunction = <T>(
     req.end();
   });
 
-export default defaultHttpRequestFunction;
+export default httpRequestFunction;

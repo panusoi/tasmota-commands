@@ -3,12 +3,11 @@ import { TasmotaCommands } from 'tasmota-commands-core';
 
 import { TasmotaCommandsHttp } from 'tasmota-commands-http';
 import { createCharacteristic } from '../characteristics';
-import { CharacteristicName, State } from '../types/characteristic';
+import { CharacteristicName } from '../types/characteristic';
 import { TasmotaCommandsAccessoryConfig } from '../types/config';
 import { presetCharacteristicMap } from '../types/preset';
 
 class TasmotaCommandsAccessoryControl {
-  state: State;
   commands: TasmotaCommands;
 
   registeredListeners: string[] = [];
@@ -23,13 +22,15 @@ class TasmotaCommandsAccessoryControl {
     this.api = api;
     this.service = service;
 
-    this.commands = new TasmotaCommandsHttp(config);
+    this.commands = new TasmotaCommandsHttp({
+      ...config,
+      refreshStateOnInit: true,
+      logger: config.verbose ? this.logger : undefined,
+    });
 
-    this.state = {
-      power: false,
-      brightness: 0,
-      ct: 0,
-    };
+    this.commands.setOnStateChange((s) => {
+      this.logger.debug('State changed: %s', JSON.stringify(s));
+    });
 
     this.registerListeners(
       config.preset !== 'custom'
@@ -48,23 +49,19 @@ class TasmotaCommandsAccessoryControl {
     }
 
     characteristicNames.forEach((name) => {
-      const characteristic = createCharacteristic(this.service, name, {
+      const characteristic = createCharacteristic(this.api.hap, this.service, name, {
         verbose: this.config.verbose,
         logger: this.logger,
         commands: this.commands,
-        getCurrentState: () => this.state,
-        setCurrentState: (key, value) => {
-          this.state = { ...this.state, [key]: value };
-          return this.state;
-        },
+        getCurrentState: this.commands.getState,
       });
 
       if (characteristic === null) {
-        this.logger.error("Cannot create Characteristic '%s'");
+        this.logger.error("Cannot create Characteristic '%s'", name);
         return;
       }
 
-      this.logger.debug('Registered listener %s', characteristic);
+      this.logger.debug('Registered listener %s', name);
     });
   }
 }

@@ -1,21 +1,45 @@
-import { Characteristic, CharacteristicEventTypes, Service } from 'homebridge';
+import { Characteristic, CharacteristicEventTypes, HAP, Service } from 'homebridge';
 import {
   CharacteristicName,
   CreateCharacteristicListener,
   CreateCharacteristicListenerArgs,
 } from '../types/characteristic';
+import createBrightnessListener from './brightness';
+import createColorTemperatureListener from './color-temperature';
 import createOnListener from './on';
 
 const createListenerFunctions: Record<CharacteristicName, CreateCharacteristicListener> = {
   On: createOnListener,
+  Brightness: createBrightnessListener,
+  ColorTemperature: createColorTemperatureListener,
+};
+
+const getCharacteristicClass = (name: CharacteristicName, hap: HAP) => {
+  switch (name) {
+    case 'On': {
+      return hap.Characteristic.On;
+    }
+    case 'Brightness': {
+      return hap.Characteristic.Brightness;
+    }
+    case 'ColorTemperature': {
+      return hap.Characteristic.ColorTemperature;
+    }
+    default: {
+      const _exhausive: never = name;
+      throw new Error(`Invalid characteristic name: '${_exhausive}'`);
+    }
+  }
 };
 
 export const createCharacteristic = (
+  hap: HAP,
   service: Service,
   name: CharacteristicName,
   args: CreateCharacteristicListenerArgs,
 ): Characteristic | null => {
-  const characteristic = service.getCharacteristic(name);
+  const characteristic = service.getCharacteristic(getCharacteristicClass(name, hap));
+
   if (!characteristic) {
     return null;
   }
