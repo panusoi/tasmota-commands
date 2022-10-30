@@ -1,8 +1,18 @@
 {
   "name": "tasmota-commands-core",
-  "version": "0.1.0",
-  "main": "dist/index.js",
-  "private": true,
+  "version": "0.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "author": "Panu Soisenniemi",
   "license": "MIT",
   "homepage": "https://github.com/panusoi/tasmota-commands#readme",
@@ -15,9 +25,9 @@
   },
   "packageManager": "yarn@3.2.4",
   "scripts": {
-    "postinstall": "yarn build",
     "watch": "yarn g:watch",
     "build": "yarn g:build",
+    "release-build": "yarn g:release-build",
     "test": "yarn g:test",
     "test-ci": "yarn g:test-ci",
     "lint": "yarn g:lint",

@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "module": "commonjs",
+    "outDir": "./dist/cjs",
+    "declarationDir": "./dist/types",
     "rootDir": "./src",
     "disableSourceOfProjectReferenceRedirect": true,
     "declaration": true,

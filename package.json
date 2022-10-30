@@ -17,22 +17,31 @@
   ],
   "packageManager": "yarn@3.2.4",
   "scripts": {
+    "postinstall": "yarn workspaces foreach run build",
     "prepare": "husky install",
+    "g:check": "cd $INIT_CWD && yarn lint && yarn prettier && yarn test && yarn build",
     "g:watch": "cd $INIT_CWD && tsc --watch",
-    "g:build": "cd $INIT_CWD && tsc --build",
+    "g:release-build": "rimraf $INIT_CWD/dist && cd $INIT_CWD && yarn test-ci && tsc --project tsconfig-cjs.json  && tsc --project tsconfig-esm.json",
+    "g:build": "cd $INIT_CWD && tsc --build  && tsc --project tsconfig-esm.json",
     "g:test": "cd $INIT_CWD && jest",
     "g:test-ci": "cd $INIT_CWD && jest --ci --testResultsProcessor=\"jest-junit\" --watchAll=false --coverage",
     "g:lint": "cd $INIT_CWD && eslint src/**/*.{js,ts,json}",
     "g:format": "prettier --write .",
     "g:prettier": "prettier --check .",
+    "check": "yarn workspaces foreach run g:check",
+    "lint": "yarn workspaces foreach run lint",
+    "build": "yarn workspaces foreach run build",
     "test": "yarn workspaces foreach run test",
     "prettier": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "changeset-status": "changeset status --since=main",
+    "release": "yarn workspaces foreach run release-build && changeset publish"
   },
   "devDependencies": {
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.8.4"
   },
   "lint-staged": {
@@ -43,5 +52,8 @@
     "**/*.{graphql,gql,yml,yaml,json,md}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.25.1"
   }
 }

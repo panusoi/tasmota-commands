@@ -1,9 +1,16 @@
 {
   "name": "tasmota-commands-http",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
   "author": "Panu Soisenniemi",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
   "license": "MIT",
   "homepage": "https://github.com/panusoi/tasmota-commands#readme",
   "repository": {
@@ -15,9 +22,9 @@
   },
   "packageManager": "yarn@3.2.4",
   "scripts": {
-    "postinstall": "yarn build",
     "watch": "yarn g:watch",
     "build": "yarn g:build",
+    "release-build": "yarn g:release-build",
     "test": "yarn g:test",
     "test-ci": "yarn g:test-ci",
     "lint": "yarn g:lint",

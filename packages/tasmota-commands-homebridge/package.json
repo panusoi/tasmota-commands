@@ -1,7 +1,6 @@
 {
   "name": "homebridge-tasmota-commands",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
   "author": "Panu Soisenniemi",
   "license": "MIT",
   "main": "dist/index.js",
@@ -23,7 +22,8 @@
   "scripts": {
     "dev": "yarn build && nodemon",
     "watch": "yarn g:watch",
-    "build": "yarn g:build",
+    "build": "tsc --build",
+    "release-build": "rimraf $INIT_CWD/dist && yarn test-ci && tsc --build",
     "test": "yarn g:test",
     "test-ci": "yarn g:test-ci",
     "lint": "yarn g:lint",
