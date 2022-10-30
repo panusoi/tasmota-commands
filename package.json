@@ -21,7 +21,7 @@
     "prepare": "husky install",
     "g:check": "cd $INIT_CWD && yarn lint && yarn prettier && yarn test && yarn build",
     "g:watch": "cd $INIT_CWD && tsc --watch",
-    "g:releaseBuild": "rimraf $INIT_CWD/dist && cd $INIT_CWD && yarn test-ci && tsc --project tsconfig-cjs.json  && tsc --project tsconfig-esm.json",
+    "g:release-build": "rimraf $INIT_CWD/dist && cd $INIT_CWD && yarn test-ci && tsc --project tsconfig-cjs.json  && tsc --project tsconfig-esm.json",
     "g:build": "cd $INIT_CWD && tsc --build  && tsc --project tsconfig-esm.json",
     "g:test": "cd $INIT_CWD && jest",
     "g:test-ci": "cd $INIT_CWD && jest --ci --testResultsProcessor=\"jest-junit\" --watchAll=false --coverage",
@@ -34,7 +34,8 @@
     "test": "yarn workspaces foreach run test",
     "prettier": "prettier --check .",
     "format": "prettier --write .",
-    "changeset-status": "changeset status --since=main"
+    "changeset-status": "changeset status --since=main",
+    "release": "yarn workspaces foreach run release-build && changeset publish"
   },
   "devDependencies": {
     "husky": "^8.0.1",

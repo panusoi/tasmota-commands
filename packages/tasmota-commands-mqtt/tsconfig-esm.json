@@ -3,6 +3,7 @@
   "compilerOptions": {
     "module": "ES2020",
     "outDir": "./dist/mjs",
+    "declarationDir": "./dist/types",
     "rootDir": "./src",
     "declaration": true
   },

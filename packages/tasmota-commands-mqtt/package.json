@@ -1,6 +1,7 @@
 {
   "name": "tasmota-commands-mqtt",
-  "version": "0.1.0",
+  "version": "0.0.0",
+  "private": true,
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "exports": {
@@ -10,7 +11,6 @@
     }
   },
   "types": "./dist/types/index.d.ts",
-  "private": true,
   "author": "Panu Soisenniemi",
   "license": "MIT",
   "homepage": "https://github.com/panusoi/tasmota-commands#readme",
@@ -25,7 +25,7 @@
   "scripts": {
     "watch": "yarn g:watch",
     "build": "yarn g:build",
-    "prepack": "yarn g:releaseBuild",
+    "release-build": "yarn g:release-build",
     "test": "yarn g:test",
     "test-ci": "yarn g:test-ci",
     "lint": "yarn g:lint",
