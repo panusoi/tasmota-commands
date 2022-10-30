@@ -8,32 +8,27 @@
   ],
   "accessories": [
     {
-      "customPresetCharacteristics": [],
       "name": "Example lightbulb (on/off)",
       "protocol": "http",
       "preset": "lightbulb-on-off",
-      "type": "lightbulb",
       "address": "127.0.0.1",
       "accessory": "tasmota-commands"
     },
     {
-      "customPresetCharacteristics": [],
-      "name": "Example switch",
+      "name": "Example switch (on/off)",
       "protocol": "http",
       "preset": "switch-on-off",
-      "type": "lightbulb",
       "address": "127.0.0.1",
       "accessory": "tasmota-commands"
     },
     {
-      "customPresetCharacteristics": ["On"],
       "name": "Example custom",
       "protocol": "http",
       "preset": "custom",
       "type": "lightbulb",
+      "customPresetCharacteristics": ["On"],
       "address": "127.0.0.1",
-      "accessory": "tasmota-commands",
-      "verbose": true
+      "accessory": "tasmota-commands"
     }
   ]
 }

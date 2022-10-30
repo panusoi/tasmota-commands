@@ -19,7 +19,6 @@
       "preset": {
         "title": "Preset",
         "type": "string",
-        "default": "lightbulb-on-off",
         "oneOf": [
           { "title": "Power switch", "enum": ["switch-on-off"] },
           { "title": "Lightbulb (on/off)", "enum": ["lightbulb-on-off"] },
@@ -30,12 +29,10 @@
       "type": {
         "title": "Type",
         "type": "string",
-        "default": "lightbulb",
         "oneOf": [
           { "title": "Lightbulb", "enum": ["lightbulb"] },
           { "title": "Switch", "enum": ["switch"] }
         ],
-        "required": true,
         "condition": {
           "functionBody": "return model.preset === 'custom';"
         }
@@ -49,7 +46,6 @@
           "type": "string",
           "enum": ["On"]
         },
-        "required": true,
         "condition": {
           "functionBody": "return model.preset === 'custom';"
         }
