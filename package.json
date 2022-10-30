@@ -33,7 +33,8 @@
     "build": "yarn workspaces foreach run build",
     "test": "yarn workspaces foreach run test",
     "prettier": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "changeset-status": "changeset status --since=main"
   },
   "devDependencies": {
     "husky": "^8.0.1",
@@ -50,5 +51,8 @@
     "**/*.{graphql,gql,yml,yaml,json,md}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.25.1"
   }
 }

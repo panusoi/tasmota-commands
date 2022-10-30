@@ -11,4 +11,5 @@ To get ready to work, do the following:
 3. Run `yarn check` to check that linter, prettier, tests and build are working
 4. Code! Remember to commit the changes frequently.
 5. Run `yarn check` to check that everything still works
-6. [Submit a pull request](https://github.com/panusoi/tasmota-commands/compare)
+6. Add changeset with `yarn changeset` or if changes doesn't need a release, run `yarn changeset add --empty`
+7. [Submit a pull request](https://github.com/panusoi/tasmota-commands/compare)
