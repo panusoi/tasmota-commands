@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Panu Soisenniemi",
+  "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://github.com/panusoi/tasmota-commands#readme",
   "repository": {
@@ -14,6 +15,7 @@
   },
   "packageManager": "yarn@3.2.4",
   "scripts": {
+    "postinstall": "yarn build",
     "watch": "yarn g:watch",
     "build": "yarn g:build",
     "test": "yarn g:test",

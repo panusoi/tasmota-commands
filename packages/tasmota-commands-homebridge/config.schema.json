@@ -1,0 +1,72 @@
+{
+  "pluginAlias": "tasmota-commands",
+  "pluginType": "accessory",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true
+      },
+      "protocol": {
+        "title": "Protocol",
+        "type": "string",
+        "default": "http",
+        "oneOf": [{ "title": "Http", "enum": ["http"] }],
+        "required": true
+      },
+      "preset": {
+        "title": "Preset",
+        "type": "string",
+        "oneOf": [
+          { "title": "Power switch", "enum": ["switch-on-off"] },
+          { "title": "Lightbulb (on/off)", "enum": ["lightbulb-on-off"] },
+          { "title": "Custom", "enum": ["custom"] }
+        ],
+        "required": true
+      },
+      "type": {
+        "title": "Type",
+        "type": "string",
+        "oneOf": [
+          { "title": "Lightbulb", "enum": ["lightbulb"] },
+          { "title": "Switch", "enum": ["switch"] }
+        ],
+        "condition": {
+          "functionBody": "return model.preset === 'custom';"
+        }
+      },
+      "customPresetCharacteristics": {
+        "title": "Characteristics",
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "title": "Characteristics",
+          "type": "string",
+          "enum": ["On"]
+        },
+        "condition": {
+          "functionBody": "return model.preset === 'custom';"
+        }
+      },
+      "address": {
+        "title": "IP Address",
+        "type": "string",
+        "required": true
+      },
+      "username": {
+        "title": "Username",
+        "description": "Username",
+        "type": "string",
+        "required": false
+      },
+      "password": {
+        "title": "Password",
+        "description": "Password",
+        "type": "string",
+        "required": false
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "platforms": [
+    {
+      "name": "Config",
+      "port": 8581,
+      "platform": "config"
+    }
+  ],
+  "accessories": [
+    {
+      "name": "Example lightbulb (on/off)",
+      "protocol": "http",
+      "preset": "lightbulb-on-off",
+      "address": "127.0.0.1",
+      "accessory": "tasmota-commands"
+    },
+    {
+      "name": "Example switch (on/off)",
+      "protocol": "http",
+      "preset": "switch-on-off",
+      "address": "127.0.0.1",
+      "accessory": "tasmota-commands"
+    },
+    {
+      "name": "Example custom",
+      "protocol": "http",
+      "preset": "custom",
+      "type": "lightbulb",
+      "customPresetCharacteristics": ["On"],
+      "address": "127.0.0.1",
+      "accessory": "tasmota-commands"
+    }
+  ]
+}

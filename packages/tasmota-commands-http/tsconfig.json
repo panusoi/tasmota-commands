@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "disableSourceOfProjectReferenceRedirect": true
+    "disableSourceOfProjectReferenceRedirect": true,
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"],

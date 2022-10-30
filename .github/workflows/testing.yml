@@ -65,3 +65,9 @@ jobs:
     needs: [install]
     with:
       package: tasmota-commands-mqtt
+
+  unit-test-homebridge:
+    uses: ./.github/workflows/unit-test-workflow.yml
+    needs: [install]
+    with:
+      package: homebridge-tasmota-commands
