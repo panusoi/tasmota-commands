@@ -8,6 +8,7 @@ jobs:
   changeset-check:
     runs-on: ubuntu-latest
     name: Changeset Status Check
+    if: github.ref != 'refs/heads/changeset-release/main'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -19,3 +20,9 @@ jobs:
           cache: 'yarn'
       - run: yarn install --immutable
       - run: yarn changeset status --since=origin/main
+  changeset-check-skipped:
+    runs-on: ubuntu-latest
+    name: Changeset Status Check
+    if: github.ref == 'refs/heads/changeset-release/main'
+    steps:
+      - run: 'echo "No check required"'
