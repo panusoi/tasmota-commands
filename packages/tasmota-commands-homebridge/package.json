@@ -31,6 +31,7 @@
     "format": "yarn g:format"
   },
   "dependencies": {
+    "tasmota-commands-core": "workspace:^",
     "tasmota-commands-http": "workspace:^"
   },
   "devDependencies": {
