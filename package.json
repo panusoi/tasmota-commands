@@ -1,6 +1,6 @@
 {
   "name": "tasmota-commands-monorepo",
-  "version": "0.1.0",
+  "version": "0..0.1",
   "private": true,
   "author": "Panu Soisenniemi",
   "license": "MIT",
