@@ -1,5 +1,12 @@
 # tasmota-commands-mqtt
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`a8379c3`](https://github.com/panusoi/tasmota-commands/commit/a8379c33e614e02e5371b91f5c9d3add848b1dca)]:
+  - tasmota-commands-core@0.1.0
+
 ## 0.0.1
 
 ### Patch Changes

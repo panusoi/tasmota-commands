@@ -1,6 +1,6 @@
 {
   "name": "tasmota-commands-http",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Panu Soisenniemi",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
@@ -32,7 +32,7 @@
     "format": "yarn g:format"
   },
   "dependencies": {
-    "tasmota-commands-core": "^0.0.1"
+    "tasmota-commands-core": "^0.1.0"
   },
   "devDependencies": {
     "@types/jest": "^29.1.2",
