@@ -35,6 +35,7 @@
     "prettier": "prettier --check .",
     "format": "prettier --write .",
     "changeset-status": "changeset status --since=main",
+    "version": "changeset version && yarn install",
     "release": "yarn workspaces foreach run release-build && changeset publish"
   },
   "devDependencies": {
