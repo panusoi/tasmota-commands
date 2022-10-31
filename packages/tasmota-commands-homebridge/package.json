@@ -1,6 +1,6 @@
 {
   "name": "homebridge-tasmota-commands",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "author": "Panu Soisenniemi",
   "license": "MIT",
   "main": "dist/index.js",
@@ -31,8 +31,8 @@
     "format": "yarn g:format"
   },
   "dependencies": {
-    "tasmota-commands-core": "workspace:^",
-    "tasmota-commands-http": "workspace:^"
+    "tasmota-commands-core": "^0.0.1",
+    "tasmota-commands-http": "^0.0.1"
   },
   "devDependencies": {
     "@types/jest": "^29.1.2",
