@@ -4716,8 +4716,8 @@ __metadata:
     jest-junit: ^14.0.1
     nodemon: ^2.0.13
     prettier: ^2.7.1
-    tasmota-commands-core: "workspace:^"
-    tasmota-commands-http: "workspace:^"
+    tasmota-commands-core: ^0.0.1
+    tasmota-commands-http: ^0.0.1
     ts-jest: ^29.0.3
     typescript: ^4.8.4
   languageName: unknown
@@ -8696,7 +8696,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tasmota-commands-core@workspace:^, tasmota-commands-core@workspace:packages/tasmota-commands-core":
+"tasmota-commands-core@^0.0.1, tasmota-commands-core@workspace:packages/tasmota-commands-core":
   version: 0.0.0-use.local
   resolution: "tasmota-commands-core@workspace:packages/tasmota-commands-core"
   dependencies:
@@ -8716,7 +8716,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"tasmota-commands-http@workspace:^, tasmota-commands-http@workspace:packages/tasmota-commands-http":
+"tasmota-commands-http@^0.0.1, tasmota-commands-http@workspace:packages/tasmota-commands-http":
   version: 0.0.0-use.local
   resolution: "tasmota-commands-http@workspace:packages/tasmota-commands-http"
   dependencies:
@@ -8731,7 +8731,7 @@ __metadata:
     jest: ^29.1.2
     jest-junit: ^14.0.1
     prettier: ^2.7.1
-    tasmota-commands-core: "workspace:^"
+    tasmota-commands-core: ^0.0.1
     ts-jest: ^29.0.3
     typescript: ^4.8.4
   languageName: unknown
@@ -8766,7 +8766,7 @@ __metadata:
     jest: ^29.1.2
     jest-junit: ^14.0.1
     prettier: ^2.7.1
-    tasmota-commands-core: "workspace:^"
+    tasmota-commands-core: ^0.0.1
     ts-jest: ^29.0.3
     typescript: ^4.8.4
   languageName: unknown
