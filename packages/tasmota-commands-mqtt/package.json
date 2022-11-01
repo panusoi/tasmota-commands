@@ -1,7 +1,6 @@
 {
   "name": "tasmota-commands-mqtt",
   "version": "0.0.2",
-  "private": true,
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "exports": {
@@ -33,6 +32,7 @@
     "format": "yarn g:format"
   },
   "dependencies": {
+    "mqtt": "^4.3.7",
     "tasmota-commands-core": "^0.1.0"
   },
   "devDependencies": {
