@@ -62,6 +62,7 @@ class TasmotaCommandsAccessoryControl {
       }
 
       this.logger.debug('Registered listener %s', name);
+      this.registeredListeners.push(name);
     });
   }
 }
