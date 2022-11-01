@@ -1,6 +1,6 @@
 {
   "name": "homebridge-tasmota-commands",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Panu Soisenniemi",
   "license": "MIT",
   "main": "dist/index.js",
