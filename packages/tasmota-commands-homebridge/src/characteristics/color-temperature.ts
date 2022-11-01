@@ -28,7 +28,7 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
         return;
       }
 
-      commands.Light.setDimmer(tasmotaCTValue)
+      commands.Light.setColorTemperature(tasmotaCTValue)
         .then((response) => {
           if (response?.CT) {
             const homebridgeCTValue = convertTasmotaColorTemperatureForHomebrige(response.CT);
@@ -38,7 +38,7 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
               return;
             }
 
-            callback(HAPStatus.SUCCESS, homebridgeCTValue);
+            callback(HAPStatus.SUCCESS);
           } else {
             callback(HAPStatus.SERVICE_COMMUNICATION_FAILURE);
           }
