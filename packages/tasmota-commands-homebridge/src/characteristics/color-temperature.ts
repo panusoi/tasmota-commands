@@ -38,7 +38,7 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
               return;
             }
 
-            callback(HAPStatus.SUCCESS, homebridgeCTValue);
+            callback(HAPStatus.SUCCESS);
           } else {
             callback(HAPStatus.SERVICE_COMMUNICATION_FAILURE);
           }
