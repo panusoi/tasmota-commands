@@ -14,6 +14,8 @@ jobs:
     name: Release packages
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 16.x
@@ -40,8 +42,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Verify published packages
-        # if: steps.changesets.outputs.published == 'true'
-        uses: ./.github/workflows/verify-packages-workflow.yml
-        with:
-          prepare_mode: npm
+
+  verify-packages:
+    needs: [release]
+    name: Verify published packages
+    if: needs.release.outputs.published == 'true'
+    uses: ./.github/workflows/verify-packages-workflow.yml
+    with:
+      prepare_mode: npm
