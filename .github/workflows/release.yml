@@ -40,7 +40,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  verify-packages:
-    uses: ./.github/workflows/verify-packages-workflow.yml
-    with:
-      prepare_mode: npm
+      - name: Verify published packages
+        # if: steps.changesets.outputs.published == 'true'
+        uses: ./.github/workflows/verify-packages-workflow.yml
+        with:
+          prepare_mode: npm
