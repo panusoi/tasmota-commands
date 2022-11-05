@@ -1,6 +1,7 @@
 name: Release
 
 on:
+  push:
   workflow_run:
     workflows: ['Testing CI']
     branches: [main]
@@ -28,20 +29,20 @@ jobs:
           EOF
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Install Dependencies
-        run: yarn install --immutable
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          title: Upcoming release
-          commit: Upcoming release changes
-          publish: yarn release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Install Dependencies
+      #  run: yarn install --immutable
+      # - name: Create Release Pull Request or Publish to npm
+      #  id: changesets
+      #  uses: changesets/action@v1
+      #  with:
+      #    title: Upcoming release
+      #    commit: Upcoming release changes
+      #    publish: yarn release
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Verify published packages
-        if: steps.changesets.outputs.published == 'true'
+        # if: steps.changesets.outputs.published == 'true'
         uses: ./.github/workflows/verify-packages-workflow.yml
         with:
           prepare_mode: npm
