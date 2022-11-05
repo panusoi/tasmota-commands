@@ -2,18 +2,19 @@ name: Release
 
 on:
   push:
-  workflow_run:
-    workflows: ['Testing CI']
-    branches: [main]
-    types:
-      - completed
+  # workflow_run:
+  #  workflows: ['Testing CI']
+  #  branches: [main]
+  #  types:
+  #    - completed
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    name: Release packages
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name:
+      Release packages
+      # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
