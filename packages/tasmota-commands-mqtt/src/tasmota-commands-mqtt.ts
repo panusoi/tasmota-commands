@@ -9,7 +9,7 @@ import getMqttCommandHandler, { TasmotaMqttOptions } from './mqtt';
  *    const commands = new TasmotaCommandsMqtt({
  *     host: 'tcp://127.0.0.1',
  *     port: 1883,
- *     topic: 'tasmota_living_roome',
+ *     topic: 'tasmota_living_room',
  *     topicFormat: '%prefix%/%topic%/<command>',
  *     username: 'user',
  *     password: 'password',
