@@ -46,7 +46,7 @@ jobs:
   verify-packages:
     needs: [release]
     name: Verify published packages
-    # if: steps.changesets.outputs.published == 'true'
+    if: steps.changesets.outputs.published == 'true'
     uses: ./.github/workflows/verify-packages-workflow.yml
     with:
       prepare_mode: npm
