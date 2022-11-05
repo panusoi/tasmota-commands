@@ -84,7 +84,7 @@ commands.Control.setPower0('on');
   - [ ] Generated api documentation
   - [x] Build CJS and ESM modules
   - [x] Versioning management with [Changesets](https://github.com/changesets/changesets)
-  - [ ] Add package exports integrity tests
+  - [x] Add package exports integrity tests
 
 ## Contribution
 
