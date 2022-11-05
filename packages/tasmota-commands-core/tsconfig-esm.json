@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "module": "ES2020",
-    "outDir": "./dist/mjs",
+    "outDir": "./dist/esm",
     "declarationDir": "./dist/types",
     "rootDir": "./src",
     "declaration": true

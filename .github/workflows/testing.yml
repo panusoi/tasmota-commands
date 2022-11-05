@@ -7,6 +7,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -72,3 +76,10 @@ jobs:
     needs: [install]
     with:
       package: homebridge-tasmota-commands
+
+  verify-packages:
+    name: Verify packages
+    uses: ./.github/workflows/verify-packages-workflow.yml
+    needs: [install]
+    with:
+      prepare_mode: local

@@ -40,3 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  verify-packages:
+    uses: ./.github/workflows/verify-packages-workflow.yml
+    with:
+      prepare_mode: npm
