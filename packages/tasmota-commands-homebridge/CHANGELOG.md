@@ -1,5 +1,13 @@
 # homebridge-tasmota-commands
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [44dc61a]
+  - tasmota-commands-core@0.2.0
+  - tasmota-commands-http@0.2.0
+
 ## 0.1.2
 
 ### Patch Changes
