@@ -48,9 +48,9 @@ Navigate to the project folder and install dependencies with yarn
 yarn install
 ```
 
-## [Roadmap](../../readme#roadmap)
+## [Roadmap](../../README.md#roadmap)
 
-## [Contribution](../../readme#contribution)
+## [Contribution](../../README.md#contribution)
 
 ## License
 

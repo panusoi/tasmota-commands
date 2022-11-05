@@ -108,7 +108,7 @@ Sample configuration using custom preset
 | type                        | if preset is `custom` | `lightbulb`, `switch`                                                                            | Device type                                                                                      |
 | customPresetCharacteristics | if preset is `custom` | Set/array of `On`, `Brightness`, `ColorTemperature`                                              | Note that not all of characteristics may not work together with each other                       |
 
-## [Roadmap](../../readme#roadmap)
+## [Roadmap](../../README.md#roadmap)
 
 ## Setup Development Environment
 
@@ -140,7 +140,7 @@ yarn dev
 
 Example configuration is [here](./homebridge-example-config.json). Homebridge reads configuration from `~/.homebridge/config.json`, you may need to setup the Config UI X on first time. There is no need for linking this package to global `node_modules`, yarn workspaces should link it automatically and it should appear in Plugins tab in the Config UI X.
 
-## [Contribution](../../readme#contribution)
+## [Contribution](../../README.md#contribution)
 
 ## License
 
