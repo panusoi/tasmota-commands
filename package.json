@@ -21,7 +21,7 @@
     "prepare": "husky install",
     "g:check": "cd $INIT_CWD && yarn lint && yarn prettier && yarn test && yarn build",
     "g:watch": "cd $INIT_CWD && tsc --watch",
-    "g:release-build": "rimraf $INIT_CWD/dist && cd $INIT_CWD && yarn test-ci && tsc --project tsconfig-cjs.json  && tsc --project tsconfig-esm.json",
+    "g:release-build": "rimraf $INIT_CWD/dist && cd $INIT_CWD && yarn test-ci && tsc --project tsconfig-cjs.json  && tsc --project tsconfig-esm.json && $PROJECT_CWD/scripts/release_post_build.sh",
     "g:build": "cd $INIT_CWD && tsc --build  && tsc --project tsconfig-esm.json",
     "g:test": "cd $INIT_CWD && jest",
     "g:test-ci": "cd $INIT_CWD && jest --ci --testResultsProcessor=\"jest-junit\" --watchAll=false --coverage",
