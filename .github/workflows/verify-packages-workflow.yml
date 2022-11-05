@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    inputs:
+      prepare_mode:
+        description: '`local` or `npm`'
+        required: false
+        default: 'local'
+        type: string
+
+jobs:
+  verify-packages:
+    runs-on: ubuntu-latest
+    name: Verify packages
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+      - run: yarn install --immutable
+        if: ${{inputs.prepare_mode == 'local'}}
+      - name: Prepare
+        working-directory: './integrity'
+        run: ./prepare-${{inputs.prepare_mode}}.sh
+      - name: Verify
+        working-directory: './integrity'
+        run: ./verify.sh

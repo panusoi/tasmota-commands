@@ -72,3 +72,9 @@ jobs:
     needs: [install]
     with:
       package: homebridge-tasmota-commands
+
+  verify-packages:
+    uses: ./.github/workflows/verify-packages-workflow.yml
+    needs: [install]
+    with:
+      prepare_mode: local
