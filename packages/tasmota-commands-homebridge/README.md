@@ -1,5 +1,7 @@
 # Tasmota Commands Homebridge Plugin
 
+[![npm version](https://badge.fury.io/js/homebridge-tasmota-commands.svg)](https://www.npmjs.com/package/homebridge-tasmota-commands)
+
 - [Tasmota Commands Homebridge Plugin](#tasmota-commands-homebridge-plugin)
   - [Overview](#overview)
   - [Features](#features)
@@ -26,13 +28,15 @@ Homebridge plugin for controlling Tasmota devices. Currently in early developmen
 
 This plugin currently supports following features:
 
-- Lightbulb
-  - On/off
-- Switch
-  - On/off
-- Custom
-  - manually set device type
-  - manually set characteristics
+- [x] Switch
+  - [x] On/off
+- [x] Lightbulb
+  - [x] On/off
+  - [x] Brightness
+  - [x] Brightness and Color Temperature
+- [x] Custom
+  - [x] Set device type
+  - [x] Set characteristics
 
 For planned features see [roadmap](../../README.md#roadmap).
 
@@ -104,7 +108,7 @@ Sample configuration using custom preset
 | type                        | if preset is `custom` | `lightbulb`, `switch`                                                                            | Device type                                                                                      |
 | customPresetCharacteristics | if preset is `custom` | Set/array of `On`, `Brightness`, `ColorTemperature`                                              | Note that not all of characteristics may not work together with each other                       |
 
-## [Roadmap](#../../README.md#roadmap)
+## [Roadmap](../../README.md#roadmap)
 
 ## Setup Development Environment
 
