@@ -7,7 +7,13 @@ import {
 } from 'homebridge';
 import { TasmotaCommands, TasmotaState } from 'tasmota-commands-core';
 
-export const characteristicNames = ['On', 'Brightness', 'ColorTemperature'] as const;
+export const characteristicNames = [
+  'On',
+  'Brightness',
+  'ColorTemperature',
+  'Hue',
+  'Saturation',
+] as const;
 
 export type CharacteristicName = typeof characteristicNames[number];
 

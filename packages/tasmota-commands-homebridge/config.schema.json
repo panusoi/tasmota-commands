@@ -27,6 +27,7 @@
             "title": "Lightbulb (brightness and color temperature)",
             "enum": ["lightbulb-brightness-ct"]
           },
+          { "title": "Lightbulb (rgb)", "enum": ["lightbulb-rgb"] },
           { "title": "Custom", "enum": ["custom"] }
         ],
         "required": true
@@ -49,7 +50,7 @@
         "items": {
           "title": "Characteristics",
           "type": "string",
-          "enum": ["On", "Brightness", "ColorTemperature"]
+          "enum": ["On", "Brightness", "ColorTemperature", "Hue", "Saturation"]
         },
         "condition": {
           "functionBody": "return model.preset === 'custom';"

@@ -6,6 +6,7 @@ const presets = [
   'lightbulb-on-off',
   'lightbulb-brightness-ct',
   'lightbulb-brightness',
+  'lightbulb-rgb',
 ] as const;
 
 const accessoryTypes = ['lightbulb', 'switch'] as const;
@@ -41,6 +42,7 @@ export const presetAccessoryTypeMap: Record<Preset['preset'], AccessoryType> = {
   'lightbulb-on-off': 'lightbulb',
   'lightbulb-brightness': 'lightbulb',
   'lightbulb-brightness-ct': 'lightbulb',
+  'lightbulb-rgb': 'lightbulb',
 };
 
 export const presetCharacteristicMap: Record<Preset['preset'], CharacteristicName[]> = {
@@ -48,4 +50,5 @@ export const presetCharacteristicMap: Record<Preset['preset'], CharacteristicNam
   'lightbulb-on-off': ['On'],
   'lightbulb-brightness': ['On', 'Brightness'],
   'lightbulb-brightness-ct': ['On', 'Brightness', 'ColorTemperature'],
+  'lightbulb-rgb': ['On', 'Brightness', 'Hue', 'Saturation'],
 };

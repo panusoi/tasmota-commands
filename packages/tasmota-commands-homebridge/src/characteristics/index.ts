@@ -7,12 +7,16 @@ import {
 } from '../types/characteristic';
 import createBrightnessListener from './brightness';
 import createColorTemperatureListener from './color-temperature';
+import createHueListener from './hue';
 import createOnListener from './on';
+import createSaturationListener from './saturation';
 
 const createListenerFunctions: Record<CharacteristicName, CreateCharacteristicListener> = {
   On: createOnListener,
   Brightness: createBrightnessListener,
   ColorTemperature: createColorTemperatureListener,
+  Hue: createHueListener,
+  Saturation: createSaturationListener,
 };
 
 const getCharacteristicClass = (name: CharacteristicName, hap: HAP) => {
@@ -25,6 +29,12 @@ const getCharacteristicClass = (name: CharacteristicName, hap: HAP) => {
     }
     case 'ColorTemperature': {
       return hap.Characteristic.ColorTemperature;
+    }
+    case 'Hue': {
+      return hap.Characteristic.Hue;
+    }
+    case 'Saturation': {
+      return hap.Characteristic.Saturation;
     }
     default: {
       const _exhausive: never = name;
