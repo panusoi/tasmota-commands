@@ -52,6 +52,11 @@ commands.Control.setPower0('on');
       - [ ] Light
         - [x] Dimmer
         - [x] CT
+        - [x] Color<x>
+        - [x] HSBColor
+        - [x] HSBColor1
+        - [x] HSBColor2
+        - [x] HSBColor3
         - [ ] More..
       - [ ] More...
     - [ ] State
