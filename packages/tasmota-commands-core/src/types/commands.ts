@@ -34,6 +34,16 @@ export type TasmotaCommandsOptions = {
    * @type {Logger}
    */
   logger?: Logger;
+
+  /**
+   * Callback that is called always after state is changed
+   */
+  onStateChanged?: OnStateChangeCallback;
+
+  /**
+   * Callback that is called always after state is refreshed
+   */
+  onStateRefreshed?: OnStateChangeCallback;
 };
 
 export type OnStateChangeCallback = (
