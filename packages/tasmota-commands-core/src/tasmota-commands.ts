@@ -2,6 +2,7 @@ import { ControlCommands, LightCommands, ManagementCommands } from './commands';
 import { ITasmotaCommands, TasmotaCommandsOptions } from './types/commands';
 import { CommandHandler } from './types/handler';
 import { TasmotaState } from './types/state';
+import { AsyncInterval, setAsyncInterval } from './utils/interval';
 
 /**
  * Tasmota Commands instance
@@ -14,8 +15,12 @@ import { TasmotaState } from './types/state';
  *
  */
 class TasmotaCommands implements ITasmotaCommands {
+  #options: TasmotaCommandsOptions;
+
   #state: TasmotaState;
   #onStateChange: ((state: TasmotaState) => void) | undefined;
+
+  #refreshStateInterval: AsyncInterval;
 
   /**
    * Control commands
@@ -40,6 +45,8 @@ class TasmotaCommands implements ITasmotaCommands {
    * @returns {TasmotaCommands} TasmotaCommands instance
    */
   constructor(commandHandler: CommandHandler, options?: TasmotaCommandsOptions) {
+    this.#options = options || {};
+
     const handler: CommandHandler = async (opts) => {
       const result = await commandHandler(opts);
       this.#setState(result);
@@ -53,8 +60,17 @@ class TasmotaCommands implements ITasmotaCommands {
     this.#state = {};
     this.#onStateChange = undefined;
 
+    this.#refreshStateInterval = setAsyncInterval(
+      this.refreshState,
+      options?.refreshStateInterval || 0,
+    );
+
     if (options?.refreshStateOnInit) {
       this.refreshState();
+    }
+
+    if (options?.refreshStateInterval) {
+      this.#refreshStateInterval.start();
     }
   }
 
@@ -87,6 +103,28 @@ class TasmotaCommands implements ITasmotaCommands {
    */
   setOnStateChange = (onStateChange: (state: TasmotaState) => void) => {
     this.#onStateChange = onStateChange;
+  };
+
+  /**
+   * Sets refresh state interval
+   * @param value interval in milliseconds
+   */
+  setRefreshStateInterval = (value: number) => {
+    this.#refreshStateInterval.setIntervalMs(value);
+  };
+
+  /**
+   * Starts refresh state interval
+   */
+  startRefreshStateInterval = () => {
+    this.#refreshStateInterval.start();
+  };
+
+  /**
+   * Stops refresh state interval
+   */
+  stopRefreshStateInterval = () => {
+    this.#refreshStateInterval.stop();
   };
 }
 

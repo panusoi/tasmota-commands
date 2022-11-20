@@ -22,6 +22,13 @@ export type TasmotaCommandsOptions = {
   refreshStateOnInit?: boolean;
 
   /**
+   * Refresh state interval in milliseconds. Disabled by default.
+   *
+   * @type {number}
+   */
+  refreshStateInterval?: number;
+
+  /**
    * Logging implementation. Leave unset to disable logging. Set to `console` or your custom implementation.
    *
    * @type {Logger}
