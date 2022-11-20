@@ -73,14 +73,14 @@ commands.Control.setPower0('on');
     - [x] Basic mqtt support
     - [ ] More configuration options
   - [ ] Homebridge plugin
-    - [ ] Option to refresh state periodically in background
+    - [x] Option to refresh state periodically in background
     - [x] Switch
       - [x] On/off
     - [x] Lightbulb
       - [x] On/off
       - [x] Brightness
       - [x] Brightness and Color Temperature
-      - [ ] RGB
+      - [x] RGB
     - [x] Custom
       - [x] Set device type
       - [x] Set characteristics
