@@ -18,8 +18,8 @@ describe('Interval utils', () => {
       interval.stop();
 
       expect(runs).toBeGreaterThanOrEqual(3);
-      expect(end.getTime() - start.getTime()).toBeGreaterThanOrEqual(15);
-      expect(end.getTime() - start.getTime()).toBeLessThanOrEqual(35);
+      expect(end.getTime() - start.getTime()).toBeGreaterThanOrEqual(5);
+      expect(end.getTime() - start.getTime()).toBeLessThanOrEqual(50);
     });
 
     test('should trigger onStart and onStop', async () => {
