@@ -48,10 +48,11 @@ commands.Control.setPower0('on');
 
 ## Parameters
 
-| Parameter          | Required | Accepted values                                     | Description                                                                                             |
-| ------------------ | -------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| refreshStateOnInit | `no`     | `boolean`                                           | Get the current state from the device asynchronously after class initialization                         |
-| logger             | `no`     | logger implementation, should satisfy type `Logger` | Logging implementation. Leave unset to disable logging. Set to `console` or your custom implementation. |
+| Parameter            | Required | Accepted values                                     | Description                                                                                             |
+| -------------------- | -------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| refreshStateOnInit   | `no`     | `boolean`                                           | Get the current state from the device asynchronously after class initialization                         |
+| refreshStateInterval | `no`     | `number`                                            | Refresh state interval in milliseconds. Disabled by default.                                            |
+| logger               | `no`     | logger implementation, should satisfy type `Logger` | Logging implementation. Leave unset to disable logging. Set to `console` or your custom implementation. |
 
 ## Setup Development Environment
 

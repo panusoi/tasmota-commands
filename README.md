@@ -60,7 +60,7 @@ commands.Control.setPower0('on');
         - [ ] Correct typings
         - [ ] Validation
         - [ ] More..
-      - [ ] Option to refresh state periodically in background
+      - [x] Option to refresh state periodically in background
   - [] Http
     - [x] Basic http support
     - [ ] More configuration options
