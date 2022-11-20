@@ -1,7 +1,7 @@
 import { Commands } from './abstract';
 import { TasmotaState } from '../types/state';
-import { isBetween, isColorValue } from '../utils';
-import { ColorValue } from '../types/color';
+import { isBetween, isColorValue, isHSB } from '../utils';
+import { ColorValue, HSB } from '../types/color';
 
 interface ILightCommands {
   setColorX: (mode: number, value: ColorValue) => Promise<TasmotaState>;
@@ -12,6 +12,13 @@ interface ILightCommands {
   setColor5: (value: ColorValue) => Promise<TasmotaState>;
   setColor6: (value: ColorValue) => Promise<TasmotaState>;
   getColor: (mode?: number) => Promise<TasmotaState>;
+
+  setHSBColor: (value: HSB) => Promise<TasmotaState>;
+  setHSBColor1: (hue: number) => Promise<TasmotaState>;
+  setHSBColor2: (sat: number) => Promise<TasmotaState>;
+  setHSBColor3: (bri: number) => Promise<TasmotaState>;
+  getHSBColor: () => Promise<TasmotaState>;
+
   setDimmer: (value: number | '+' | '-') => Promise<TasmotaState>;
   getDimmer: () => Promise<TasmotaState>;
   setColorTemperature: (args: number | '+' | '-') => Promise<TasmotaState>;
@@ -106,7 +113,7 @@ class LightCommands extends Commands implements ILightCommands {
   /**
    * Get color value
    * @param mode 1..6, default is 1
-   * @returns
+   * @returns {TasmotaState} TasmotaState
    */
   getColor: ILightCommands['getColor'] = (mode = 1) => {
     if (!isBetween(mode, { min: 1, max: 6, inclusive: true })) {
@@ -115,6 +122,72 @@ class LightCommands extends Commands implements ILightCommands {
       return Promise.reject(new Error(errorMessage));
     }
     return this.commandHandler({ command: `Color${mode}`, payload: null, logger: this.logger });
+  };
+
+  /**
+   * Set color by hue, saturation and brightness
+   * @param value {HSB} HSB value `<hue>,<sat>,<bri>`
+   * @returns {TasmotaState} TasmotaState
+   */
+  setHSBColor: ILightCommands['setHSBColor'] = (value) => {
+    if (!isHSB(value)) {
+      const errorMessage = `Value ${value} (typeof ${typeof value}) is not a valid hsb value.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+
+    return this.commandHandler({ command: 'HSBColor', payload: value, logger: this.logger });
+  };
+
+  /**
+   * Set hue
+   * @param hue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setHSBColor1: ILightCommands['setHSBColor1'] = (hue) => {
+    if (!isBetween(hue, { min: 0, max: 360, inclusive: true })) {
+      const errorMessage = `Value ${hue} (typeof ${typeof hue}) is not a valid hsb hue value.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+    return this.commandHandler({ command: 'HSBColor1', payload: hue, logger: this.logger });
+  };
+
+  /**
+   * Set saturation
+   * @param sat
+   * @returns {TasmotaState} TasmotaState
+   */
+  setHSBColor2: ILightCommands['setHSBColor2'] = (sat) => {
+    if (!isBetween(sat, { min: 0, max: 100, inclusive: true })) {
+      const errorMessage = `Value ${sat} (typeof ${typeof sat}) is not a valid hsb saturation value.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+    return this.commandHandler({ command: 'HSBColor2', payload: sat, logger: this.logger });
+  };
+
+  /**
+   * Set brightness
+   * @param bri
+   * @returns {TasmotaState} TasmotaState
+   */
+  setHSBColor3: ILightCommands['setHSBColor3'] = (bri) => {
+    if (!isBetween(bri, { min: 0, max: 100, inclusive: true })) {
+      const errorMessage = `Value ${bri} (typeof ${typeof bri}) is not a valid brightness hue value.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+    return this.commandHandler({ command: 'HSBColor3', payload: bri, logger: this.logger });
+  };
+
+  /**
+   * Get hsb color value
+   *
+   * @returns {TasmotaState} TasmotaState
+   */
+  getHSBColor: ILightCommands['getHSBColor'] = () => {
+    return this.commandHandler({ command: 'HSBColor', payload: null, logger: this.logger });
   };
 
   /**

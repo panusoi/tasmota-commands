@@ -51,3 +51,15 @@ export type HexColor = `#${string}`;
  * {@link ColorPreset} or {@link RGB} or {@link HexColor}
  */
 export type ColorValue = ColorPreset | RGB | HexColor;
+
+/**
+ * HSB value separated by comma `<hue>,<sat>,<bri>`
+ *
+ * `hue` = hue, `0..360`
+ *
+ * `sat` = saturation, `0..100`
+ *
+ * `bri` = brightness, `0..100`
+ *
+ */
+export type HSB = `${number},${number},${number}`;

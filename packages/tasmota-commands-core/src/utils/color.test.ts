@@ -1,4 +1,4 @@
-import { isColorPreset, isRGB, isHexColor } from './color';
+import { isColorPreset, isRGB, isHexColor, isHSB } from './color';
 
 describe('Color utils', () => {
   describe('type guards', () => {
@@ -54,6 +54,33 @@ describe('Color utils', () => {
 
       expect(valid.filter((v) => !isHexColor(v))).toMatchInlineSnapshot(`[]`);
       expect(invalid.filter((v) => isHexColor(v))).toMatchInlineSnapshot(`[]`);
+    });
+
+    test('isHSB', () => {
+      const valid = ['0,0,0', '50,50,50', '360,100,100'];
+      const invalid = [
+        0,
+        {},
+        null,
+        undefined,
+        [],
+        () => true,
+        '+',
+        '#ffffff',
+        '255,255,-1',
+        '255,-1,255',
+        '-1,255,255',
+        '255,255,256',
+        '255,256,255',
+        '256,255,255',
+        'ff,255,255',
+        '0, 101, 101',
+        '-1,100,100',
+        '361,100,100',
+      ];
+
+      expect(valid.filter((v) => !isHSB(v))).toMatchInlineSnapshot(`[]`);
+      expect(invalid.filter((v) => isHSB(v))).toMatchInlineSnapshot(`[]`);
     });
   });
 });

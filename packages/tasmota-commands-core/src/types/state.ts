@@ -6,4 +6,6 @@ export type TasmotaState = Partial<{
   Dimmer: number;
   CT: number;
   Color: string;
+  HSBColor: string;
+  White: number;
 }>;

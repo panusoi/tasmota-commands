@@ -1,7 +1,9 @@
-import { ColorPreset, ColorValue, HexColor, RGB } from '../types/color';
+import { ColorPreset, ColorValue, HexColor, HSB, RGB } from '../types/color';
 import { isBetween } from './number';
 
 const RGB_REGEX = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
+
+const HSB_REGEX = /^(\d{1,3}),(\d{1,3}),(\d{1,3})$/;
 
 const HEX_COLOR_REGEX = /^#([A-Fa-f0-9]{4}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{10})$/;
 
@@ -40,3 +42,26 @@ export const isHexColor = (value: unknown): value is HexColor =>
 
 export const isColorValue = (value: ColorValue): value is ColorValue =>
   isColorPreset(value) || isRGB(value) || isHexColor(value);
+
+export const isHSB = (value: unknown): value is HSB => {
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  const matches = value.match(HSB_REGEX);
+  if (!matches) {
+    return false;
+  }
+
+  const h = matches[1]
+    ? isBetween(Number.parseInt(matches[1]), { min: 0, max: 360, inclusive: true })
+    : false;
+  const s = matches[2]
+    ? isBetween(Number.parseInt(matches[2]), { min: 0, max: 100, inclusive: true })
+    : false;
+  const b = matches[3]
+    ? isBetween(Number.parseInt(matches[3]), { min: 0, max: 100, inclusive: true })
+    : false;
+
+  return h && s && b;
+};
