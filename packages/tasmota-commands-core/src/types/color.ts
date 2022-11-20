@@ -30,7 +30,7 @@
 export type ColorPreset = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | '+' | '-';
 
 /**
- * RGB value (0..255) seperated by comma
+ * RGB value (0..255) separated by comma
  */
 export type RGB = `${number},${number},${number}`;
 

@@ -52,6 +52,7 @@ commands.Control.setPower0('on');
       - [ ] Light
         - [x] Dimmer
         - [x] CT
+        - [x] Color<x>
         - [ ] More..
       - [ ] More...
     - [ ] State

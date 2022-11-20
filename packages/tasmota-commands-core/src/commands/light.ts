@@ -1,15 +1,122 @@
 import { Commands } from './abstract';
 import { TasmotaState } from '../types/state';
-import { isBetween } from '../utils/number';
+import { isBetween, isColorValue } from '../utils';
+import { ColorValue } from '../types/color';
 
 interface ILightCommands {
+  setColorX: (mode: number, value: ColorValue) => Promise<TasmotaState>;
+  setColor1: (value: ColorValue) => Promise<TasmotaState>;
+  setColor2: (value: ColorValue) => Promise<TasmotaState>;
+  setColor3: (value: ColorValue) => Promise<TasmotaState>;
+  setColor4: (value: ColorValue) => Promise<TasmotaState>;
+  setColor5: (value: ColorValue) => Promise<TasmotaState>;
+  setColor6: (value: ColorValue) => Promise<TasmotaState>;
+  getColor: (mode?: number) => Promise<TasmotaState>;
   setDimmer: (value: number | '+' | '-') => Promise<TasmotaState>;
   getDimmer: () => Promise<TasmotaState>;
   setColorTemperature: (args: number | '+' | '-') => Promise<TasmotaState>;
   getColorTemperature: () => Promise<TasmotaState>;
 }
 
+/**
+ * @see https://tasmota.github.io/docs/Commands/#light
+ */
 class LightCommands extends Commands implements ILightCommands {
+  /**
+   * Set color mode and value
+   * @param mode 1..6
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColorX: ILightCommands['setColorX'] = (mode, value) => {
+    if (!isBetween(mode, { min: 1, max: 6, inclusive: true })) {
+      const errorMessage = `Mode ${mode} (typeof ${typeof mode}) is not a valid color mode.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+
+    if (!isColorValue(value)) {
+      const errorMessage = `Value ${value} (typeof ${typeof value}) is not a valid color value.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+
+    return this.commandHandler({ command: `Color${mode}`, payload: value, logger: this.logger });
+  };
+
+  /**
+   * Set color
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColor1: ILightCommands['setColor1'] = (value) => {
+    return this.setColorX(1, value);
+  };
+
+  /**
+   * Set color adjusted to current Dimmer value
+   *
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColor2: ILightCommands['setColor2'] = (value) => {
+    return this.setColorX(2, value);
+  };
+
+  /**
+   * Set clock seconds hand color ({@link https://tasmota.github.io/docs/Commands/#scheme Scheme} `5` only)
+   *
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColor3: ILightCommands['setColor2'] = (value) => {
+    return this.setColorX(2, value);
+  };
+
+  /**
+   * Set clock minutes hand color ({@link https://tasmota.github.io/docs/Commands/#scheme Scheme} `5` only)
+   *
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColor4: ILightCommands['setColor2'] = (value) => {
+    return this.setColorX(2, value);
+  };
+
+  /**
+   * Set clock hour hand color ({@link https://tasmota.github.io/docs/Commands/#scheme Scheme} `5` only)
+   *
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColor5: ILightCommands['setColor2'] = (value) => {
+    return this.setColorX(2, value);
+  };
+
+  /**
+   *  Set clock hour marker color
+   *
+   * @param value {ColorValue} ColorValue
+   * @returns {TasmotaState} TasmotaState
+   */
+  setColor6: ILightCommands['setColor2'] = (value) => {
+    return this.setColorX(2, value);
+  };
+
+  /**
+   * Get color value
+   * @param mode 1..6, default is 1
+   * @returns
+   */
+  getColor: ILightCommands['getColor'] = (mode = 1) => {
+    if (!isBetween(mode, { min: 1, max: 6, inclusive: true })) {
+      const errorMessage = `Mode ${mode} (typeof ${typeof mode}) is not a valid color mode.`;
+      this.logger?.error(errorMessage);
+      return Promise.reject(new Error(errorMessage));
+    }
+    return this.commandHandler({ command: `Color${mode}`, payload: null, logger: this.logger });
+  };
+
   /**
    * Set dimmer value
    *
