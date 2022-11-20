@@ -2,7 +2,7 @@ import { API, Logger, Service } from 'homebridge';
 import { TasmotaCommands } from 'tasmota-commands-core';
 
 import { TasmotaCommandsHttp } from 'tasmota-commands-http';
-import { createCharacteristic } from '../characteristics';
+import { CharacteristicWithUpdate, createCharacteristic } from '../characteristics';
 import { CharacteristicName } from '../types/characteristic';
 import { TasmotaCommandsAccessoryConfig } from '../types/config';
 import { presetCharacteristicMap } from '../types/preset';
@@ -10,7 +10,7 @@ import { presetCharacteristicMap } from '../types/preset';
 class TasmotaCommandsAccessoryControl {
   commands: TasmotaCommands;
 
-  registeredListeners: string[] = [];
+  characteristics: CharacteristicWithUpdate[] = [];
 
   constructor(
     readonly logger: Logger,
@@ -25,11 +25,22 @@ class TasmotaCommandsAccessoryControl {
     this.commands = new TasmotaCommandsHttp({
       ...config,
       refreshStateOnInit: true,
+      refreshStateInterval: (config.refreshInterval || 0) * 1000,
       logger: config.verbose ? this.logger : undefined,
     });
 
-    this.commands.setOnStateChange((s) => {
-      this.logger.debug('State changed: %s', JSON.stringify(s));
+    this.commands.setOnStateChange((state, changedKeys) => {
+      const characteristicUpdates = this.characteristics.map((c) => ({
+        name: c.characteristic.displayName,
+        updated: c.onStateUpdate(c.characteristic, state, changedKeys),
+      }));
+
+      this.logger.debug(
+        'State keys changed: %s. Characteristics updated: %s.',
+        JSON.stringify(changedKeys),
+        JSON.stringify(characteristicUpdates.filter((c) => c.updated).map((c) => c.name)),
+      );
+      this.config.verbose && this.logger.debug('Current state: %s', JSON.stringify(state));
     });
 
     this.registerListeners(
@@ -40,7 +51,7 @@ class TasmotaCommandsAccessoryControl {
   }
 
   public getRegisteredListeners(): string[] {
-    return this.registeredListeners;
+    return this.characteristics.map((c) => c.characteristic.displayName);
   }
 
   protected registerListeners(characteristicNames: CharacteristicName[]): void {
@@ -62,7 +73,7 @@ class TasmotaCommandsAccessoryControl {
       }
 
       this.logger.debug('Registered listener %s', name);
-      this.registeredListeners.push(name);
+      this.characteristics.push(characteristic);
     });
   }
 }

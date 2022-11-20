@@ -7,6 +7,15 @@ type VerboseConfig = {
   verbose?: true;
 };
 
+type CommonConfig = {
+  refreshInterval?: number;
+};
+
+export const isCommonConfig = (value: unknown): value is CommonConfig =>
+  isNotNullOrUndefined(value) &&
+  typeof value === 'object' &&
+  ['undefined', 'number'].includes(typeof (value as CommonConfig).refreshInterval);
+
 export const isAccessoryConfig = (value: unknown): value is AccessoryConfig =>
   isNotNullOrUndefined(value) &&
   typeof value === 'object' &&
@@ -16,4 +25,5 @@ export const isAccessoryConfig = (value: unknown): value is AccessoryConfig =>
 export type TasmotaCommandsAccessoryConfig = AccessoryConfig &
   ProtocolConfig &
   PresetConfig &
-  VerboseConfig;
+  VerboseConfig &
+  CommonConfig;

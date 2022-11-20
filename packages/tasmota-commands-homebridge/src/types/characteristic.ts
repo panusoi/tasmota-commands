@@ -1,4 +1,5 @@
 import {
+  Characteristic,
   CharacteristicGetCallback,
   CharacteristicSetCallback,
   CharacteristicValue,
@@ -20,9 +21,16 @@ type CharacteristicSetFn = (
 
 type CharacteristicGetFn = (callback: CharacteristicGetCallback) => void;
 
+export type OnStateUpdate = (
+  characteristic: Characteristic,
+  state: Partial<TasmotaState>,
+  changedKeys: (keyof TasmotaState)[],
+) => boolean;
+
 type CharacteristicListeners = {
   set: CharacteristicSetFn;
   get: CharacteristicGetFn;
+  onStateUpdate: OnStateUpdate;
 };
 
 export type CreateCharacteristicListenerArgs = {

@@ -87,9 +87,10 @@ Sample configuration using custom preset
 
 ### Common parameters
 
-| Parameter | Required | Accepted values                 | Description |
-| --------- | -------- | ------------------------------- | ----------- |
-| name      | `yes`    | Valid Homebridge accessory name |             |
+| Parameter       | Required | Accepted values                 | Description                                                                             |
+| --------------- | -------- | ------------------------------- | --------------------------------------------------------------------------------------- |
+| name            | `yes`    | Valid Homebridge accessory name |                                                                                         |
+| refreshInterval | `no`     | `number`                        | Refresh interval in seconds. Set to `0` or `undefined` to disable. Disabled by default. |
 
 ### Protocol parameters
 

@@ -60,6 +60,17 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
         callback(HAPStatus.RESOURCE_DOES_NOT_EXIST);
       }
     },
+    onStateUpdate: (charasteric, state, changedKeys) => {
+      if (changedKeys.includes('CT')) {
+        verbose && logger?.debug(`Color Temperature onStateChange`);
+        const tasmotaCTValue = convertHomebrigeForTasmotaColorTemperature(state.CT);
+        if (tasmotaCTValue) {
+          charasteric.updateValue(tasmotaCTValue);
+          return true;
+        }
+      }
+      return false;
+    },
   };
 };
 

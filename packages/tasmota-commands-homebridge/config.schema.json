@@ -71,6 +71,12 @@
         "description": "Password",
         "type": "string",
         "required": false
+      },
+      "refreshInterval": {
+        "title": "State refresh interval (s)",
+        "type": "number",
+        "default": 60,
+        "required": false
       }
     }
   }

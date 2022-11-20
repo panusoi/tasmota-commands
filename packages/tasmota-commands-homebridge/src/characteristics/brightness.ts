@@ -44,6 +44,16 @@ const createBrightnessListener: CreateCharacteristicListener = ({
         callback(HAPStatus.RESOURCE_DOES_NOT_EXIST);
       }
     },
+    onStateUpdate: (charasteric, state, changedKeys) => {
+      if (changedKeys.includes('Dimmer')) {
+        verbose && logger?.debug(`Brightness onStateChange`);
+        if (isValidBrightness(state.Dimmer)) {
+          charasteric.updateValue(state.Dimmer);
+          return true;
+        }
+      }
+      return false;
+    },
   };
 };
 

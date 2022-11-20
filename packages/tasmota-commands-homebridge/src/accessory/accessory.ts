@@ -1,4 +1,5 @@
 import { AccessoryConfig, AccessoryPlugin, API, Logger, Service } from 'homebridge';
+import { isCommonConfig } from '../types/config';
 import { isCustomPreset, isPreset, presetAccessoryTypeMap } from '../types/preset';
 import { isHttpProtocolConfig } from '../types/protocol';
 import TasmotaCommandsAccessoryControl from './accessory-control';
@@ -31,6 +32,11 @@ class TasmotaCommandsAccessory implements AccessoryPlugin {
 
     if (!isHttpProtocolConfig(config)) {
       logger.error('Invalid protocol config');
+      return;
+    }
+
+    if (!isCommonConfig(config)) {
+      logger.error('Invalid config');
       return;
     }
 
