@@ -1,7 +1,8 @@
 import { ControlCommands, LightCommands, ManagementCommands } from './commands';
-import { ITasmotaCommands, TasmotaCommandsOptions } from './types/commands';
+import { ITasmotaCommands, OnStateChangeCallback, TasmotaCommandsOptions } from './types/commands';
 import { CommandHandler } from './types/handler';
 import { TasmotaState } from './types/state';
+import { getChangedKeys } from './utils';
 import { AsyncInterval, setAsyncInterval } from './utils/interval';
 
 /**
@@ -18,7 +19,7 @@ class TasmotaCommands implements ITasmotaCommands {
   #options: TasmotaCommandsOptions;
 
   #state: TasmotaState;
-  #onStateChange: ((state: TasmotaState) => void) | undefined;
+  #onStateChange: OnStateChangeCallback | undefined;
 
   #refreshStateInterval: AsyncInterval;
 
@@ -75,8 +76,9 @@ class TasmotaCommands implements ITasmotaCommands {
   }
 
   #setState = (state: TasmotaState) => {
+    const changedKeys = getChangedKeys(this.#state, state);
     this.#state = { ...this.#state, ...state };
-    this.#onStateChange?.(this.#state);
+    this.#onStateChange?.(this.#state, changedKeys);
     return this.#state;
   };
 
@@ -101,7 +103,7 @@ class TasmotaCommands implements ITasmotaCommands {
   /**
    * Sets `onStateChange` listener
    */
-  setOnStateChange = (onStateChange: (state: TasmotaState) => void) => {
+  setOnStateChange = (onStateChange: OnStateChangeCallback) => {
     this.#onStateChange = onStateChange;
   };
 

@@ -36,11 +36,16 @@ export type TasmotaCommandsOptions = {
   logger?: Logger;
 };
 
+export type OnStateChangeCallback = (
+  state: TasmotaState,
+  changedKeys: (keyof TasmotaState)[],
+) => void;
+
 export interface ITasmotaCommands {
   Control: ControlCommands;
   Management: ManagementCommands;
   Light: LightCommands;
   getState: () => TasmotaState;
   refreshState: () => Promise<TasmotaState>;
-  setOnStateChange: (callback: (state: TasmotaState) => void) => void;
+  setOnStateChange: (callback: OnStateChangeCallback) => void;
 }
