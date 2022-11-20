@@ -27,20 +27,23 @@ class TasmotaCommandsAccessoryControl {
       refreshStateOnInit: true,
       refreshStateInterval: (config.refreshInterval || 0) * 1000,
       logger: config.verbose ? this.logger : undefined,
-    });
+      onStateRefreshed: (state, changedKeys) => {
+        const characteristicUpdates = this.characteristics.map((c) => ({
+          name: c.characteristic.displayName,
+          updated: c.onStateUpdate(c.characteristic, state, changedKeys),
+        }));
 
-    this.commands.setOnStateChange((state, changedKeys) => {
-      const characteristicUpdates = this.characteristics.map((c) => ({
-        name: c.characteristic.displayName,
-        updated: c.onStateUpdate(c.characteristic, state, changedKeys),
-      }));
-
-      this.logger.debug(
-        'State keys changed: %s. Characteristics updated: %s.',
-        JSON.stringify(changedKeys),
-        JSON.stringify(characteristicUpdates.filter((c) => c.updated).map((c) => c.name)),
-      );
-      this.config.verbose && this.logger.debug('Current state: %s', JSON.stringify(state));
+        this.config.verbose &&
+          this.logger.debug(
+            'State keys changed: %s. Characteristics updated: %s.',
+            JSON.stringify(changedKeys),
+          );
+        this.logger.debug(
+          'Characteristics updated: %s.',
+          JSON.stringify(characteristicUpdates.filter((c) => c.updated).map((c) => c.name)),
+        );
+        this.config.verbose && this.logger.debug('Current state: %s', JSON.stringify(state));
+      },
     });
 
     this.registerListeners(
