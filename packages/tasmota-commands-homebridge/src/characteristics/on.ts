@@ -31,6 +31,15 @@ const createOnListener: CreateCharacteristicListener = ({
       verbose && logger?.debug('Current on state: ', getCurrentState()?.POWER);
       callback(HAPStatus.SUCCESS, isPowerOn(getCurrentState()?.POWER));
     },
+    onStateUpdate: (characteristic, state, changedKeys) => {
+      if (changedKeys.includes('POWER')) {
+        verbose && logger?.debug(`Power onStateChange`);
+        characteristic.updateValue(isPowerOn(state.POWER));
+        return true;
+      }
+
+      return false;
+    },
   };
 };
 

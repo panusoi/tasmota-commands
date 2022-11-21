@@ -34,7 +34,22 @@ export type TasmotaCommandsOptions = {
    * @type {Logger}
    */
   logger?: Logger;
+
+  /**
+   * Callback that is called always after state is changed
+   */
+  onStateChanged?: OnStateChangeCallback;
+
+  /**
+   * Callback that is called always after state is refreshed
+   */
+  onStateRefreshed?: OnStateChangeCallback;
 };
+
+export type OnStateChangeCallback = (
+  state: TasmotaState,
+  changedKeys: (keyof TasmotaState)[],
+) => void;
 
 export interface ITasmotaCommands {
   Control: ControlCommands;
@@ -42,5 +57,5 @@ export interface ITasmotaCommands {
   Light: LightCommands;
   getState: () => TasmotaState;
   refreshState: () => Promise<TasmotaState>;
-  setOnStateChange: (callback: (state: TasmotaState) => void) => void;
+  setOnStateChange: (callback: OnStateChangeCallback) => void;
 }

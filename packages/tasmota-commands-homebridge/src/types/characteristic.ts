@@ -1,4 +1,5 @@
 import {
+  Characteristic,
   CharacteristicGetCallback,
   CharacteristicSetCallback,
   CharacteristicValue,
@@ -6,7 +7,13 @@ import {
 } from 'homebridge';
 import { TasmotaCommands, TasmotaState } from 'tasmota-commands-core';
 
-export const characteristicNames = ['On', 'Brightness', 'ColorTemperature'] as const;
+export const characteristicNames = [
+  'On',
+  'Brightness',
+  'ColorTemperature',
+  'Hue',
+  'Saturation',
+] as const;
 
 export type CharacteristicName = typeof characteristicNames[number];
 
@@ -20,9 +27,16 @@ type CharacteristicSetFn = (
 
 type CharacteristicGetFn = (callback: CharacteristicGetCallback) => void;
 
+export type OnStateUpdate = (
+  characteristic: Characteristic,
+  state: Partial<TasmotaState>,
+  changedKeys: (keyof TasmotaState)[],
+) => boolean;
+
 type CharacteristicListeners = {
   set: CharacteristicSetFn;
   get: CharacteristicGetFn;
+  onStateUpdate: OnStateUpdate;
 };
 
 export type CreateCharacteristicListenerArgs = {

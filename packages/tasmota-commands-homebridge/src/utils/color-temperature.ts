@@ -6,7 +6,7 @@ const TASMOTA_CT_MIN = 153;
 const HOMEBRIDGE_CT_MAX = 500;
 const HOMEBRIDGE_CT_MIN = 140;
 
-export const convertTasmotaColorTemperatureForHomebrige = (
+export const convertTasmotaColorTemperatureForHomebridge = (
   value: number | undefined,
 ): number | null => {
   if (typeof value !== 'number') {
@@ -26,7 +26,7 @@ export const convertTasmotaColorTemperatureForHomebrige = (
   return Math.round(homeValue);
 };
 
-export const convertHomebrigeForTasmotaColorTemperature = (
+export const convertHomebridgeForTasmotaColorTemperature = (
   value: number | undefined,
 ): number | null => {
   if (typeof value !== 'number') {

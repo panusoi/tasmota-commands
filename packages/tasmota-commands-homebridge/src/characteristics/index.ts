@@ -3,15 +3,20 @@ import {
   CharacteristicName,
   CreateCharacteristicListener,
   CreateCharacteristicListenerArgs,
+  OnStateUpdate,
 } from '../types/characteristic';
 import createBrightnessListener from './brightness';
 import createColorTemperatureListener from './color-temperature';
+import createHueListener from './hue';
 import createOnListener from './on';
+import createSaturationListener from './saturation';
 
 const createListenerFunctions: Record<CharacteristicName, CreateCharacteristicListener> = {
   On: createOnListener,
   Brightness: createBrightnessListener,
   ColorTemperature: createColorTemperatureListener,
+  Hue: createHueListener,
+  Saturation: createSaturationListener,
 };
 
 const getCharacteristicClass = (name: CharacteristicName, hap: HAP) => {
@@ -25,6 +30,12 @@ const getCharacteristicClass = (name: CharacteristicName, hap: HAP) => {
     case 'ColorTemperature': {
       return hap.Characteristic.ColorTemperature;
     }
+    case 'Hue': {
+      return hap.Characteristic.Hue;
+    }
+    case 'Saturation': {
+      return hap.Characteristic.Saturation;
+    }
     default: {
       const _exhausive: never = name;
       throw new Error(`Invalid characteristic name: '${_exhausive}'`);
@@ -32,12 +43,17 @@ const getCharacteristicClass = (name: CharacteristicName, hap: HAP) => {
   }
 };
 
+export type CharacteristicWithUpdate = {
+  characteristic: Characteristic;
+  onStateUpdate: OnStateUpdate;
+};
+
 export const createCharacteristic = (
   hap: HAP,
   service: Service,
   name: CharacteristicName,
   args: CreateCharacteristicListenerArgs,
-): Characteristic | null => {
+): CharacteristicWithUpdate | null => {
   const characteristic = service.getCharacteristic(getCharacteristicClass(name, hap));
 
   if (!characteristic) {
@@ -48,5 +64,5 @@ export const createCharacteristic = (
   const listener = createListeners(args);
   characteristic.on(CharacteristicEventTypes.GET, listener.get);
   characteristic.on(CharacteristicEventTypes.SET, listener.set);
-  return characteristic;
+  return { characteristic, onStateUpdate: listener.onStateUpdate };
 };

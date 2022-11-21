@@ -1,8 +1,8 @@
 import { HAPStatus } from 'homebridge';
 import { CreateCharacteristicListener } from '../types/characteristic';
 import {
-  convertHomebrigeForTasmotaColorTemperature,
-  convertTasmotaColorTemperatureForHomebrige,
+  convertHomebridgeForTasmotaColorTemperature,
+  convertTasmotaColorTemperatureForHomebridge,
 } from '../utils/color-temperature';
 
 // https://github.com/homebridge/HAP-NodeJS/blob/master/src/lib/definitions/CharacteristicDefinitions.ts#L671
@@ -21,7 +21,7 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
         return;
       }
 
-      const tasmotaCTValue = convertHomebrigeForTasmotaColorTemperature(value);
+      const tasmotaCTValue = convertHomebridgeForTasmotaColorTemperature(value);
 
       if (tasmotaCTValue === null) {
         callback(HAPStatus.INVALID_VALUE_IN_REQUEST);
@@ -31,7 +31,7 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
       commands.Light.setColorTemperature(tasmotaCTValue)
         .then((response) => {
           if (response?.CT) {
-            const homebridgeCTValue = convertTasmotaColorTemperatureForHomebrige(response.CT);
+            const homebridgeCTValue = convertTasmotaColorTemperatureForHomebridge(response.CT);
 
             if (homebridgeCTValue === null) {
               callback(HAPStatus.SERVICE_COMMUNICATION_FAILURE);
@@ -50,15 +50,26 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
     },
     get: (callback) => {
       const { CT } = getCurrentState();
-      const tasmotaCTValue = convertHomebrigeForTasmotaColorTemperature(CT);
+      const homebridgeCTValue = convertTasmotaColorTemperatureForHomebridge(CT);
 
-      verbose && logger?.debug(`Current 'Color Temperature' state: ${tasmotaCTValue}`);
+      verbose && logger?.debug(`Current 'Color Temperature' state: ${homebridgeCTValue}`);
 
-      if (tasmotaCTValue !== null) {
-        callback(HAPStatus.SUCCESS, tasmotaCTValue);
+      if (homebridgeCTValue !== null) {
+        callback(HAPStatus.SUCCESS, homebridgeCTValue);
       } else {
         callback(HAPStatus.RESOURCE_DOES_NOT_EXIST);
       }
+    },
+    onStateUpdate: (characteristic, state, changedKeys) => {
+      if (changedKeys.includes('CT')) {
+        verbose && logger?.debug(`Color Temperature onStateChange`);
+        const homebridgeCTValue = convertTasmotaColorTemperatureForHomebridge(state.CT);
+        if (homebridgeCTValue) {
+          characteristic.updateValue(homebridgeCTValue);
+          return true;
+        }
+      }
+      return false;
     },
   };
 };

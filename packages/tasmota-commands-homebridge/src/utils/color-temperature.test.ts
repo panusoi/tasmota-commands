@@ -1,34 +1,34 @@
 import {
-  convertTasmotaColorTemperatureForHomebrige,
-  convertHomebrigeForTasmotaColorTemperature,
+  convertTasmotaColorTemperatureForHomebridge,
+  convertHomebridgeForTasmotaColorTemperature,
 } from './color-temperature';
 
 describe('Color temperature utils', () => {
   describe('convertTasmotaColorTemperatureForHomebrige', () => {
     test('converts to homebridge range', () => {
-      expect(convertTasmotaColorTemperatureForHomebrige(153)).toMatchInlineSnapshot(`140`);
-      expect(convertTasmotaColorTemperatureForHomebrige(250)).toMatchInlineSnapshot(`241`);
-      expect(convertTasmotaColorTemperatureForHomebrige(500)).toMatchInlineSnapshot(`500`);
+      expect(convertTasmotaColorTemperatureForHomebridge(153)).toMatchInlineSnapshot(`140`);
+      expect(convertTasmotaColorTemperatureForHomebridge(250)).toMatchInlineSnapshot(`241`);
+      expect(convertTasmotaColorTemperatureForHomebridge(500)).toMatchInlineSnapshot(`500`);
     });
 
     test('returns null on invalid input', () => {
-      expect(convertTasmotaColorTemperatureForHomebrige(13)).toBe(null);
-      expect(convertTasmotaColorTemperatureForHomebrige(undefined)).toBe(null);
-      expect(convertTasmotaColorTemperatureForHomebrige(600)).toBe(null);
+      expect(convertTasmotaColorTemperatureForHomebridge(13)).toBe(null);
+      expect(convertTasmotaColorTemperatureForHomebridge(undefined)).toBe(null);
+      expect(convertTasmotaColorTemperatureForHomebridge(600)).toBe(null);
     });
   });
 
   describe('convertHomebrigeForTasmotaColorTemperature', () => {
     test('converts to tasmota range', () => {
-      expect(convertHomebrigeForTasmotaColorTemperature(140)).toMatchInlineSnapshot(`153`);
-      expect(convertHomebrigeForTasmotaColorTemperature(241)).toMatchInlineSnapshot(`250`);
-      expect(convertHomebrigeForTasmotaColorTemperature(500)).toMatchInlineSnapshot(`500`);
+      expect(convertHomebridgeForTasmotaColorTemperature(140)).toMatchInlineSnapshot(`153`);
+      expect(convertHomebridgeForTasmotaColorTemperature(241)).toMatchInlineSnapshot(`250`);
+      expect(convertHomebridgeForTasmotaColorTemperature(500)).toMatchInlineSnapshot(`500`);
     });
 
     test('returns null on invalid input', () => {
-      expect(convertHomebrigeForTasmotaColorTemperature(13)).toBe(null);
-      expect(convertHomebrigeForTasmotaColorTemperature(undefined)).toBe(null);
-      expect(convertHomebrigeForTasmotaColorTemperature(600)).toBe(null);
+      expect(convertHomebridgeForTasmotaColorTemperature(13)).toBe(null);
+      expect(convertHomebridgeForTasmotaColorTemperature(undefined)).toBe(null);
+      expect(convertHomebridgeForTasmotaColorTemperature(600)).toBe(null);
     });
   });
 });

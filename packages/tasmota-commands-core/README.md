@@ -53,6 +53,8 @@ commands.Control.setPower0('on');
 | refreshStateOnInit   | `no`     | `boolean`                                           | Get the current state from the device asynchronously after class initialization                         |
 | refreshStateInterval | `no`     | `number`                                            | Refresh state interval in milliseconds. Disabled by default.                                            |
 | logger               | `no`     | logger implementation, should satisfy type `Logger` | Logging implementation. Leave unset to disable logging. Set to `console` or your custom implementation. |
+| onStateChanged       | `no`     | `OnStateChangeCallback`                             | Callback that is called always after state is changed                                                   |
+| onStateRefreshed     | `no`     | `OnStateChangeCallback`                             | Callback that is called always after state is refreshed                                                 |
 
 ## Setup Development Environment
 
