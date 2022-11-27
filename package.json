@@ -15,7 +15,7 @@
   "workspaces": [
     "packages/**"
   ],
-  "packageManager": "yarn@3.2.4",
+  "packageManager": "yarn@3.3.0",
   "scripts": {
     "postinstall": "yarn workspaces foreach run build",
     "prepare": "husky install",
@@ -38,11 +38,11 @@
     "release": "yarn workspaces foreach run release-build && changeset publish"
   },
   "devDependencies": {
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.4",
+    "prettier": "^2.8.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   },
   "lint-staged": {
     "packages/**/src/**/*.{ts,tsx,js,jsx}": [
@@ -55,6 +55,6 @@
   },
   "dependencies": {
     "@changesets/changelog-git": "^0.1.13",
-    "@changesets/cli": "^2.25.1"
+    "@changesets/cli": "^2.25.2"
   }
 }
