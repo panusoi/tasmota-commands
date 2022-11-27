@@ -7,11 +7,11 @@ export type HttpRequestFunction = <T>(options: http.RequestOptions) => Promise<T
 
 export type TasmotaMqttOptions = {
   host: string;
-  port: number;
   topic: string;
   topicFormat: string;
-  username: string;
-  password: string;
+  port?: number;
+  username?: string;
+  password?: string;
   connectOnInit?: boolean;
 };
 
