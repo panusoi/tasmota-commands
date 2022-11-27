@@ -36,24 +36,24 @@ const getMqttCommandHandler = ({
     throw new Error("Invalid topicFormat, '%prefix%' is not included");
   }
 
-  let client = connectOnInit
-    ? Mqtt.connect(host, {
-        protocol: 'mqtt',
-        username,
-        password,
-        port,
-      })
-    : null;
+  const clientConfig: Mqtt.IClientOptions = {
+    protocol: 'mqtt',
+    username,
+    password,
+    port,
+    connectTimeout: 10000,
+  };
+
+  let client = connectOnInit ? Mqtt.connect(host, clientConfig) : null;
 
   const handler: CommandHandler = ({ command, payload, logger }) =>
     new Promise((resolve, reject) => {
+      let timer: NodeJS.Timeout | undefined = undefined;
+
       if (client === null) {
-        client = Mqtt.connect(host, {
-          protocol: 'mqtt',
-          username,
-          password,
-          port,
-        });
+        client = Mqtt.connect(host, clientConfig);
+      } else if (client.disconnected) {
+        client.reconnect();
       }
 
       const cmnd = topicFormat
@@ -74,11 +74,6 @@ const getMqttCommandHandler = ({
         .replace('%topic%', topic)
         .replace('%prefix%', 'stat');
 
-      const timer = setTimeout(() => {
-        client?.unsubscribe([stat, resultStat]);
-        reject(new Error(`Promise timed out after 5 s`));
-      }, 5000);
-
       client.on('connect', () => {
         logger?.debug('connnected');
       });
@@ -98,6 +93,17 @@ const getMqttCommandHandler = ({
         }
       });
 
+      client.on('offline', () => {
+        client?.end();
+        clearTimeout(timer);
+        reject(new Error('Client offline. Check your connection settings.'));
+      });
+
+      client.on('error', (error) => {
+        clearTimeout(timer);
+        reject(error);
+      });
+
       client.subscribe([stat, resultStat], (error, grants) => {
         if (error) {
           reject(error);
@@ -105,10 +111,10 @@ const getMqttCommandHandler = ({
         }
         logger?.debug('subs', grants.map((a) => `${a.topic} - ${a.qos}`).join(','));
         client?.publish(cmnd, `${payload ?? ''}`);
-      });
-
-      client.on('error', () => {
-        reject();
+        timer = setTimeout(() => {
+          client?.unsubscribe([stat, resultStat]);
+          reject(new Error('Command response timed out after 5s. Check your topic configuration.'));
+        }, 5000);
       });
     });
 
