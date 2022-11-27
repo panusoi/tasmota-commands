@@ -10,7 +10,8 @@
     - [NPM](#npm)
   - [Configuration](#configuration)
     - [Common parameters](#common-parameters)
-    - [Protocol parameters](#protocol-parameters)
+    - [Protocol parameters (http)](#protocol-parameters-http)
+    - [Protocol parameters (mqtt, experimental)](#protocol-parameters-mqtt-experimental)
     - [Preset parameters](#preset-parameters)
   - [Roadmap](#roadmap)
   - [Setup Development Environment](#setup-development-environment)
@@ -92,14 +93,27 @@ Sample configuration using custom preset
 | name            | `yes`    | Valid Homebridge accessory name |                                                                                         |
 | refreshInterval | `no`     | `number`                        | Refresh interval in seconds. Set to `0` or `undefined` to disable. Disabled by default. |
 
-### Protocol parameters
+### Protocol parameters (http)
 
-| Parameter | Required              | Accepted values                                                             | Description                                                               |
-| --------- | --------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| protocol  | `yes`                 | `http`                                                                      | Currently only `http` protocol is supported. `Mqtt` support is on roadmap |
-| address   | if protocol is `http` | IP Address or address to device without `http(s)://`, e.x. `mydevice.local` |                                                                           |
-| username  | `no`                  | Valid Tasmota username                                                      |                                                                           |
-| password  | `no`                  | Valid Tasmota password                                                      |                                                                           |
+| Parameter | Required              | Accepted values                                                             | Description |
+| --------- | --------------------- | --------------------------------------------------------------------------- | ----------- |
+| protocol  | `yes`                 | `http`                                                                      |             |
+| address   | if protocol is `http` | IP Address or address to device without `http(s)://`, e.x. `mydevice.local` |             |
+| username  | `no`                  | Valid Tasmota username                                                      |             |
+| password  | `no`                  | Valid Tasmota password                                                      |             |
+
+### Protocol parameters (mqtt, experimental)
+
+| Parameter     | Required | Accepted values                                                             | Description                                                                                                                |
+| ------------- | -------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| protocol      | `yes`    | `mqtt`                                                                      |                                                                                                                            |
+| host          | `yes`    | brokerUrl with protocol                                                     | only `tcp://` is currently supported, e.g. `tcp://127.0.0.1`                                                               |
+| topic         | `yes`    | `string`                                                                    | Topic from Tasmota MQTT parameters                                                                                         |
+| topicFormat   | `yes`    | topic format `string` which includes `%prefix%`, `%prefix%` and `<command>` | Full Topic from Tasmota MQTT parameters with added `<command>`, usually to end of string e.g. `%prefix%/%topic%/<command>` |
+| port          | `no`     | `number`                                                                    | Broker port e.g. `1883`                                                                                                    |
+| username      | `no`     | username                                                                    | Broker username, if any                                                                                                    |
+| password      | `no`     | password                                                                    | Broker password, if any                                                                                                    |
+| connectOnInit | `no`     | `boolean`                                                                   | Defaults to `true`. Create connection to broker on init.                                                                   |
 
 ### Preset parameters
 

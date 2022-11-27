@@ -13,9 +13,79 @@
         "title": "Protocol",
         "type": "string",
         "default": "http",
-        "oneOf": [{ "title": "Http", "enum": ["http"] }],
+        "oneOf": [
+          { "title": "Http", "enum": ["http"] },
+          { "title": "Mqtt (experimental)", "enum": ["mqtt"] }
+        ],
         "required": true
       },
+      "address": {
+        "title": "IP Address",
+        "type": "string",
+        "required": true,
+        "description": "E.g. `127.0.0.1`",
+        "condition": {
+          "functionBody": "return model.protocol === 'http';"
+        }
+      },
+      "host": {
+        "title": "Mqtt broker host",
+        "type": "string",
+        "required": true,
+        "description": "E.g. `tcp://127.0.0.1`",
+        "condition": {
+          "functionBody": "return model.protocol === 'mqtt';"
+        }
+      },
+      "topic": {
+        "title": "Mqtt topic",
+        "type": "string",
+        "required": true,
+        "description": "E.g. `tasmota_living_room`",
+        "condition": {
+          "functionBody": "return model.protocol === 'mqtt';"
+        }
+      },
+      "topicFormat": {
+        "title": "Mqtt topic format",
+        "type": "string",
+        "required": true,
+        "description": "E.g. `%prefix%/%topic%/&#60;command&#62;`",
+        "condition": {
+          "functionBody": "return model.protocol === 'mqtt';"
+        }
+      },
+      "port": {
+        "title": "Mqtt broker port",
+        "type": "number",
+        "required": false,
+        "description": "E.g. `1883`",
+        "condition": {
+          "functionBody": "return model.protocol === 'mqtt';"
+        }
+      },
+      "connectOnInit": {
+        "title": "Connect to Mqtt broker on init",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "condition": {
+          "functionBody": "return model.protocol === 'mqtt';"
+        }
+      },
+      "username": {
+        "title": "Username",
+        "description": "Username",
+        "type": "string",
+        "required": false
+      },
+      "password": {
+        "title": "Password",
+        "description": "Password",
+        "type": "string",
+        "required": false
+      },
+
       "preset": {
         "title": "Preset",
         "type": "string",
@@ -55,23 +125,6 @@
         "condition": {
           "functionBody": "return model.preset === 'custom';"
         }
-      },
-      "address": {
-        "title": "IP Address",
-        "type": "string",
-        "required": true
-      },
-      "username": {
-        "title": "Username",
-        "description": "Username",
-        "type": "string",
-        "required": false
-      },
-      "password": {
-        "title": "Password",
-        "description": "Password",
-        "type": "string",
-        "required": false
       },
       "refreshInterval": {
         "title": "State refresh interval (s)",

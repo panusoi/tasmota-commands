@@ -74,6 +74,8 @@ commands.Control.setPower0('on');
     - [ ] Better subscription management and Tasmota state handling
     - [ ] More configuration options
   - [ ] Homebridge plugin
+    - [x] Http support
+    - [x] Mqtt support (experimental)
     - [x] Option to refresh state periodically in background
     - [x] Switch
       - [x] On/off
