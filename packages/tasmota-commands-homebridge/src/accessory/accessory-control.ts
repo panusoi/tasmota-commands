@@ -1,11 +1,13 @@
 import { API, Logger, Service } from 'homebridge';
-import { TasmotaCommands } from 'tasmota-commands-core';
+import { TasmotaCommands, TasmotaCommandsOptions } from 'tasmota-commands-core';
 
 import { TasmotaCommandsHttp } from 'tasmota-commands-http';
+import { TasmotaCommandsMqtt } from 'tasmota-commands-mqtt';
 import { CharacteristicWithUpdate, createCharacteristic } from '../characteristics';
 import { CharacteristicName } from '../types/characteristic';
 import { TasmotaCommandsAccessoryConfig } from '../types/config';
 import { presetCharacteristicMap } from '../types/preset';
+import { isHttpProtocolConfig } from '../types/protocol';
 
 class TasmotaCommandsAccessoryControl {
   commands: TasmotaCommands;
@@ -22,8 +24,7 @@ class TasmotaCommandsAccessoryControl {
     this.api = api;
     this.service = service;
 
-    this.commands = new TasmotaCommandsHttp({
-      ...config,
+    const tasmotaCoreOptions: TasmotaCommandsOptions = {
       refreshStateOnInit: true,
       refreshStateInterval: (config.refreshInterval || 0) * 1000,
       logger: config.verbose ? this.logger : undefined,
@@ -32,7 +33,6 @@ class TasmotaCommandsAccessoryControl {
           name: c.characteristic.displayName,
           updated: c.onStateUpdate(c.characteristic, state, changedKeys),
         }));
-
         this.config.verbose &&
           this.logger.debug(
             'State keys changed: %s. Characteristics updated: %s.',
@@ -44,7 +44,20 @@ class TasmotaCommandsAccessoryControl {
         );
         this.config.verbose && this.logger.debug('Current state: %s', JSON.stringify(state));
       },
-    });
+    };
+
+    if (isHttpProtocolConfig(config)) {
+      this.commands = new TasmotaCommandsHttp({
+        ...config,
+        ...tasmotaCoreOptions,
+      });
+    } else {
+      this.commands = new TasmotaCommandsMqtt({
+        ...config,
+        ...tasmotaCoreOptions,
+      });
+      this.logger.warn('Mqtt support is experimental.');
+    }
 
     this.registerListeners(
       config.preset !== 'custom'

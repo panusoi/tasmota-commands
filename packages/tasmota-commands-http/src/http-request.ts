@@ -5,9 +5,9 @@ import { getCommandPath } from './utils/path';
 export type HttpRequestFunction = <T>(options: http.RequestOptions) => Promise<T>;
 
 export type TasmotaHttpOptions = {
-  readonly address: string;
-  readonly username?: string;
-  readonly password?: string;
+  address: string;
+  username?: string;
+  password?: string;
 };
 
 export const getHttpCommandHandler = (opts: TasmotaHttpOptions): CommandHandler => {

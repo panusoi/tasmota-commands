@@ -29,11 +29,11 @@ commands.Control.setPower0('on');
 | Parameter     | Required | Accepted values                                                             | Description                                                                                                                |
 | ------------- | -------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | host          | `yes`    | brokerUrl with protocol                                                     | only `tcp://` is currently supported, e.g. `tcp://127.0.0.1`                                                               |
-| port          | `yes`    | `number`                                                                    | broker port e.g. `1883`                                                                                                    |
 | topic         | `yes`    | `string`                                                                    | Topic from Tasmota MQTT parameters                                                                                         |
 | topicFormat   | `yes`    | topic format `string` which includes `%prefix%`, `%prefix%` and `<command>` | Full Topic from Tasmota MQTT parameters with added `<command>`, usually to end of string e.g. `%prefix%/%topic%/<command>` |
-| username      | `yes`    | username                                                                    |                                                                                                                            |
-| username      | `yes`    | password                                                                    |                                                                                                                            |
+| port          | `no`     | `number`                                                                    | Broker port e.g. `1883`                                                                                                    |
+| username      | `no`     | username                                                                    | Broker username, if any                                                                                                    |
+| password      | `no`     | password                                                                    | Broker password, if any                                                                                                    |
 | connectOnInit | `no`     | `boolean`                                                                   | Defaults to `true`. Create connection to broker on init.                                                                   |
 
 and all `tasmota-commands-core` [parameters](../tasmota-commands-core/README.md#parameters) are supported.

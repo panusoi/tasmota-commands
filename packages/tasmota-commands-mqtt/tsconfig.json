@@ -6,7 +6,9 @@
     "declarationDir": "./dist/types",
     "rootDir": "./src",
     "disableSourceOfProjectReferenceRedirect": true,
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"],

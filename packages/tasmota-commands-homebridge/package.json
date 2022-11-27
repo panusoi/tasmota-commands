@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "tasmota-commands-core": "^0.2.0",
-    "tasmota-commands-http": "^0.2.0"
+    "tasmota-commands-http": "^0.2.0",
+    "tasmota-commands-mqtt": "^0.2.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.2",

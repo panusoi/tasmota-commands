@@ -8,5 +8,9 @@
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"],
-  "references": [{ "path": "../tasmota-commands-core" }, { "path": "../tasmota-commands-http" }]
+  "references": [
+    { "path": "../tasmota-commands-core" },
+    { "path": "../tasmota-commands-http" },
+    { "path": "../tasmota-commands-mqtt" }
+  ]
 }

@@ -1,19 +1,25 @@
 import { isNotNullOrUndefined } from 'tasmota-commands-core';
+import { TasmotaMqttOptions } from 'tasmota-commands-mqtt';
+import { TasmotaHttpOptions } from 'tasmota-commands-http';
+import {
+  isString,
+  isStringOrUndefined,
+  isNumberOrUndefined,
+  isBooleanOrUndefined,
+} from '../utils/validator';
 
 type HttpProtocolConfig = {
   protocol: 'http';
-  address: string;
-  username?: string;
-  password?: string;
-};
+} & TasmotaHttpOptions;
 
 type MqttProtocolConfig = {
   protocol: 'mqtt';
-  address: string;
-  topic: string;
-};
+} & TasmotaMqttOptions;
 
 export type ProtocolConfig = HttpProtocolConfig | MqttProtocolConfig;
+
+export const isProtocolConfig = (value: unknown): value is ProtocolConfig =>
+  isHttpProtocolConfig(value) || isMqttProtocolConfig(value);
 
 export const isHttpProtocolConfig = (value: unknown): value is HttpProtocolConfig =>
   isNotNullOrUndefined(value) &&
@@ -27,5 +33,10 @@ export const isMqttProtocolConfig = (value: unknown): value is MqttProtocolConfi
   isNotNullOrUndefined(value) &&
   typeof value === 'object' &&
   (value as MqttProtocolConfig).protocol === 'mqtt' &&
-  typeof (value as MqttProtocolConfig).address === 'string' &&
-  typeof (value as MqttProtocolConfig).topic === 'string';
+  isString((value as MqttProtocolConfig).host) &&
+  isString((value as MqttProtocolConfig).topic) &&
+  isString((value as MqttProtocolConfig).topicFormat) &&
+  isStringOrUndefined((value as MqttProtocolConfig).username) &&
+  isStringOrUndefined((value as MqttProtocolConfig).password) &&
+  isNumberOrUndefined((value as MqttProtocolConfig).port) &&
+  isBooleanOrUndefined((value as MqttProtocolConfig).connectOnInit);
