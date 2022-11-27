@@ -12,15 +12,8 @@
 
 - Updated dependencies [c906911]
 - Updated dependencies [df5c223]
-- Updated dependencies [af1d4f6]
-- Updated dependencies [4a6bec7]
-- Updated dependencies [4a6bec7]
-- Updated dependencies [4a6bec7]
 - Updated dependencies [4a6bec7]
 - Updated dependencies [af1d4f6]
-- Updated dependencies [4a6bec7]
-- Updated dependencies [c906911]
-- Updated dependencies [4a6bec7]
   - tasmota-commands-core@0.3.0
   - tasmota-commands-mqtt@0.3.0
   - tasmota-commands-http@0.3.0
