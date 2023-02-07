@@ -11,10 +11,10 @@ const presets = [
 
 const accessoryTypes = ['lightbulb', 'switch'] as const;
 
-type AccessoryType = typeof accessoryTypes[number];
+type AccessoryType = (typeof accessoryTypes)[number];
 
 type Preset = {
-  preset: typeof presets[number];
+  preset: (typeof presets)[number];
 };
 
 type CustomPreset = {
