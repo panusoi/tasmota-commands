@@ -15,7 +15,7 @@ export const characteristicNames = [
   'Saturation',
 ] as const;
 
-export type CharacteristicName = typeof characteristicNames[number];
+export type CharacteristicName = (typeof characteristicNames)[number];
 
 export const isCharacteristicNamesArray = (array: unknown): array is CharacteristicName[] =>
   Array.isArray(array) && array.every((i) => characteristicNames.includes(i));
