@@ -21,14 +21,14 @@ describe('tasmota-commands', () => {
     const commands = new TasmotaCommands(commandHandlerMock, {});
     expect(commands.getState()).toMatchInlineSnapshot(`{}`);
 
-    await commands.Control.setPower0('on');
+    await commands.sendCommand('Control', 'Power0', 'on');
     expect(commands.getState()).toMatchInlineSnapshot(`
       {
         "POWER": "ON",
       }
     `);
 
-    await commands.Light.setDimmer(63);
+    await commands.sendCommand('Light', 'Dimmer', 63);
     expect(commands.getState()).toMatchInlineSnapshot(`
       {
         "CT": 63,
@@ -36,7 +36,7 @@ describe('tasmota-commands', () => {
       }
     `);
 
-    await commands.Management.getState();
+    await commands.sendCommand('Management', 'State');
     expect(commands.getState()).toMatchInlineSnapshot(`
       {
         "CT": 400,

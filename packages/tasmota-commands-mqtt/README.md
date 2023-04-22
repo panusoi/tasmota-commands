@@ -21,7 +21,21 @@ const commands = new TasmotaCommandsMqtt({
   username: 'user',
   password: 'password',
 });
-commands.Control.setPower0('on');
+
+// Power up the device
+await commands.sendCommand('Control', 'Power0', 'on');
+
+// Change light color to red
+await commands.sendCommand('Light', 'Color', '255,0,0');
+
+// Get current wifi light color
+const color = await commands.sendCommand('Light', 'Color');
+
+// Get current device state
+const state = await commands.sendCommand('Management', 'State');
+
+// Send any command with "Custom"
+await commands.sendCommand('Custom', 'Sleep', 50);
 ```
 
 ## Parameters

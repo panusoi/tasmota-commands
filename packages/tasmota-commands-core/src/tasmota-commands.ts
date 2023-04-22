@@ -1,5 +1,11 @@
 import { ControlCommands, LightCommands, ManagementCommands } from './commands';
-import { ITasmotaCommands, OnStateChangeCallback, TasmotaCommandsOptions } from './types/commands';
+import {
+  CommandCategory,
+  Commands,
+  ITasmotaCommands,
+  OnStateChangeCallback,
+  TasmotaCommandsOptions,
+} from './types/commands';
 import { CommandHandler } from './types/handler';
 import { TasmotaState } from './types/state';
 import { getChangedKeys } from './utils';
@@ -23,6 +29,8 @@ class TasmotaCommands implements ITasmotaCommands {
   #onStateRefreshed: OnStateChangeCallback | undefined;
 
   #refreshStateInterval: AsyncInterval;
+
+  #commandHandler: CommandHandler;
 
   /**
    * Control commands
@@ -54,6 +62,7 @@ class TasmotaCommands implements ITasmotaCommands {
       this.#setState(result, opts.command === 'State');
       return result;
     };
+    this.#commandHandler = handler;
 
     this.Control = new ControlCommands(handler, options?.logger);
     this.Management = new ManagementCommands(handler, options?.logger);
@@ -139,6 +148,52 @@ class TasmotaCommands implements ITasmotaCommands {
    */
   setOnStateRefreshed = (onStateChange: OnStateChangeCallback) => {
     this.#onStateRefreshed = onStateChange;
+  };
+
+  /**
+   * Sends a command to the device
+   *
+   * Payload parameter type changes based on `category` and `command` parameter combinations.
+   * If `category = "Custom"`, command parameter is typed as `string` and payload parameter as `unknown`. If payload is not
+   * a string, its stringified before sending with `JSON.stringify`.
+   *
+   *
+   * Returns a partial {@link TasmotaState} from the device or throws an error.
+   *
+   * ### Examples
+   *
+   * Change light color to red
+   *
+   * ```ts
+   * await commands.sendCommand("Light", "Color", "255,0,0"); // Command parameter is typed as literal union and payload parameter is typed as ColorValue
+   *
+   * ```
+   *
+   * Send any command
+   *
+   * ```ts
+   * await commands.sendCommand("Custom", "Color", "255,0,0"); // Command parameter is typed as string and payload parameter is typed as unknown
+   * ```
+   *
+   *
+   *
+   *
+   */
+  sendCommand = async <
+    Category extends CommandCategory,
+    Command extends Extract<keyof Commands[Category], string>,
+    Payload extends Commands[Category][Command],
+  >(
+    category: Category,
+    command: Command,
+    payload: Payload | null = null,
+  ): Promise<TasmotaState> => {
+    const jsonPayload = typeof payload === 'string' ? payload : JSON.stringify(payload);
+    return this.#commandHandler({
+      command,
+      payload: payload === null ? null : jsonPayload,
+      logger: this.#options.logger,
+    });
   };
 }
 
