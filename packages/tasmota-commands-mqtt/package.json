@@ -1,6 +1,6 @@
 {
   "name": "tasmota-commands-mqtt",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "mqtt": "^4.3.7",
-    "tasmota-commands-core": "^0.3.0"
+    "tasmota-commands-core": "^0.4.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
