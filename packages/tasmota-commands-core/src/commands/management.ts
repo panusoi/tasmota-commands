@@ -10,6 +10,8 @@ class ManagementCommands extends Commands implements IManagementCommands {
    * Get current device state
    *
    * @returns {TasmotaState} TasmotaState
+   *
+   * @deprecated in favor of `sendCommand`
    */
   getState = () => {
     return this.commandHandler({ command: 'State', payload: null, logger: this.logger });

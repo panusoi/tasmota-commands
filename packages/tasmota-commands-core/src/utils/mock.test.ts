@@ -20,10 +20,10 @@ export const commandHandlerMock: CommandHandler = (args) => {
       });
     }
     case 'Dimmer': {
-      return Promise.resolve({ CT: typeof args.payload === 'number' ? args.payload : 33 });
+      return Promise.resolve({ CT: typeof args.payload === 'string' ? Number(args.payload) : 33 });
     }
     case 'CT': {
-      return Promise.resolve({ CT: typeof args.payload === 'number' ? args.payload : 250 });
+      return Promise.resolve({ CT: typeof args.payload === 'string' ? Number(args.payload) : 250 });
     }
     default: {
       return Promise.reject(new Error('Invalid arguments'));

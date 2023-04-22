@@ -34,6 +34,7 @@ class LightCommands extends Commands implements ILightCommands {
    * @param mode 1..6
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColorX: ILightCommands['setColorX'] = (mode, value) => {
     if (!isBetween(mode, { min: 1, max: 6, inclusive: true })) {
@@ -55,6 +56,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Set color
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColor1: ILightCommands['setColor1'] = (value) => {
     return this.setColorX(1, value);
@@ -65,6 +67,7 @@ class LightCommands extends Commands implements ILightCommands {
    *
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColor2: ILightCommands['setColor2'] = (value) => {
     return this.setColorX(2, value);
@@ -75,6 +78,7 @@ class LightCommands extends Commands implements ILightCommands {
    *
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColor3: ILightCommands['setColor2'] = (value) => {
     return this.setColorX(2, value);
@@ -85,6 +89,7 @@ class LightCommands extends Commands implements ILightCommands {
    *
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColor4: ILightCommands['setColor2'] = (value) => {
     return this.setColorX(2, value);
@@ -95,6 +100,7 @@ class LightCommands extends Commands implements ILightCommands {
    *
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColor5: ILightCommands['setColor2'] = (value) => {
     return this.setColorX(2, value);
@@ -105,6 +111,7 @@ class LightCommands extends Commands implements ILightCommands {
    *
    * @param value {ColorValue} ColorValue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColor6: ILightCommands['setColor2'] = (value) => {
     return this.setColorX(2, value);
@@ -114,6 +121,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Get color value
    * @param mode 1..6, default is 1
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   getColor: ILightCommands['getColor'] = (mode = 1) => {
     if (!isBetween(mode, { min: 1, max: 6, inclusive: true })) {
@@ -128,6 +136,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Set color by hue, saturation and brightness
    * @param value {HSB} HSB value `<hue>,<sat>,<bri>`
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setHSBColor: ILightCommands['setHSBColor'] = (value) => {
     if (!isHSB(value)) {
@@ -143,6 +152,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Set hue
    * @param hue
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setHSBColor1: ILightCommands['setHSBColor1'] = (hue) => {
     if (!isBetween(hue, { min: 0, max: 360, inclusive: true })) {
@@ -157,6 +167,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Set saturation
    * @param sat
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setHSBColor2: ILightCommands['setHSBColor2'] = (sat) => {
     if (!isBetween(sat, { min: 0, max: 100, inclusive: true })) {
@@ -171,6 +182,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Set brightness
    * @param bri
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setHSBColor3: ILightCommands['setHSBColor3'] = (bri) => {
     if (!isBetween(bri, { min: 0, max: 100, inclusive: true })) {
@@ -185,6 +197,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Get hsb color value
    *
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   getHSBColor: ILightCommands['getHSBColor'] = () => {
     return this.commandHandler({ command: 'HSBColor', payload: null, logger: this.logger });
@@ -196,6 +209,7 @@ class LightCommands extends Commands implements ILightCommands {
    * @param {number | "+" | "-"} value - `0-100` = set dimmer value percent or `+`/`-` increase/decrease  by `DimmerStep` (default `10`)
    *
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setDimmer: ILightCommands['setDimmer'] = (value) => {
     if (
@@ -215,6 +229,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Get dimmer value
    *
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   getDimmer: ILightCommands['getDimmer'] = () => {
     return this.commandHandler({ command: 'Dimmer', payload: null, logger: this.logger });
@@ -226,6 +241,7 @@ class LightCommands extends Commands implements ILightCommands {
    * @param {number | "+" | "-"} value - `153-500` = set color temperature value or `+`/`-` increase/decrease by `10`
    *
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   setColorTemperature: ILightCommands['setColorTemperature'] = (value) => {
     if (
@@ -245,6 +261,7 @@ class LightCommands extends Commands implements ILightCommands {
    * Get color temperature value
    *
    * @returns {TasmotaState} TasmotaState
+   * @deprecated in favor of `sendCommand`
    */
   getColorTemperature: ILightCommands['getColorTemperature'] = () => {
     return this.commandHandler({ command: 'CT', payload: null, logger: this.logger });
