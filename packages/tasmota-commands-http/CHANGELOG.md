@@ -1,5 +1,16 @@
 # tasmota-commands-http
 
+## 0.4.0
+
+### Minor Changes
+
+- 2b08b94: add `sendCommand` method and deprecate old command sending methods
+
+### Patch Changes
+
+- Updated dependencies [2b08b94]
+  - tasmota-commands-core@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
