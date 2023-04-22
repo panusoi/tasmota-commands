@@ -27,6 +27,7 @@ interface ILightCommands {
 
 /**
  * @see https://tasmota.github.io/docs/Commands/#light
+ * @deprecated in favor of `sendCommand`
  */
 class LightCommands extends Commands implements ILightCommands {
   /**

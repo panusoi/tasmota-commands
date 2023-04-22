@@ -150,6 +150,35 @@ class TasmotaCommands implements ITasmotaCommands {
     this.#onStateRefreshed = onStateChange;
   };
 
+  /**
+   * Sends a command to the device
+   *
+   * Payload parameter type changes based on `category` and `command` parameter combinations.
+   * If `category = "Custom"`, command parameter is typed as `string` and payload parameter as `unknown`. If payload is not
+   * a string, its stringified before sending with `JSON.stringify`.
+   *
+   *
+   * Returns a partial {@link TasmotaState} from the device or throws an error.
+   *
+   * ### Examples
+   *
+   * Change light color to red
+   *
+   * ```ts
+   * await commands.sendCommand("Light", "Color", "255,0,0"); // Command parameter is typed as literal union and payload parameter is typed as ColorValue
+   *
+   * ```
+   *
+   * Send any command
+   *
+   * ```ts
+   * await commands.sendCommand("Custom", "Color", "255,0,0"); // Command parameter is typed as string and payload parameter is typed as unknown
+   * ```
+   *
+   *
+   *
+   *
+   */
   sendCommand = async <
     Category extends CommandCategory,
     Command extends Extract<keyof Commands[Category], string>,

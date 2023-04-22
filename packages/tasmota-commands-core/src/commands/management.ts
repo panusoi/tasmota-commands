@@ -5,6 +5,9 @@ interface IManagementCommands {
   getState: () => Promise<TasmotaState>;
 }
 
+/**
+ * @deprecated in favor of `sendCommand`
+ */
 class ManagementCommands extends Commands implements IManagementCommands {
   /**
    * Get current device state

@@ -6,6 +6,9 @@ interface IControlCommands {
   getPower0: () => Promise<TasmotaState>;
 }
 
+/**
+ * @deprecated in favor of `sendCommand`
+ */
 class ControlCommands extends Commands implements IControlCommands {
   /**
    * Set power state for all power outputs
