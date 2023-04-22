@@ -4905,9 +4905,9 @@ __metadata:
     jest-junit: ^16.0.0
     nodemon: ^2.0.22
     prettier: ^2.8.7
-    tasmota-commands-core: ^0.3.0
-    tasmota-commands-http: ^0.3.0
-    tasmota-commands-mqtt: ^0.3.0
+    tasmota-commands-core: ^0.4.0
+    tasmota-commands-http: ^0.4.0
+    tasmota-commands-mqtt: ^0.4.0
     ts-jest: ^29.1.0
     typescript: ^5.0.4
   languageName: unknown
@@ -9120,7 +9120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tasmota-commands-core@^0.3.0, tasmota-commands-core@workspace:packages/tasmota-commands-core":
+"tasmota-commands-core@^0.4.0, tasmota-commands-core@workspace:packages/tasmota-commands-core":
   version: 0.0.0-use.local
   resolution: "tasmota-commands-core@workspace:packages/tasmota-commands-core"
   dependencies:
@@ -9140,7 +9140,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"tasmota-commands-http@^0.3.0, tasmota-commands-http@workspace:packages/tasmota-commands-http":
+"tasmota-commands-http@^0.4.0, tasmota-commands-http@workspace:packages/tasmota-commands-http":
   version: 0.0.0-use.local
   resolution: "tasmota-commands-http@workspace:packages/tasmota-commands-http"
   dependencies:
@@ -9155,7 +9155,7 @@ __metadata:
     jest: ^29.5.0
     jest-junit: ^16.0.0
     prettier: ^2.8.7
-    tasmota-commands-core: ^0.3.0
+    tasmota-commands-core: ^0.4.0
     ts-jest: ^29.1.0
     typescript: ^5.0.4
   languageName: unknown
@@ -9182,7 +9182,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"tasmota-commands-mqtt@^0.3.0, tasmota-commands-mqtt@workspace:packages/tasmota-commands-mqtt":
+"tasmota-commands-mqtt@^0.4.0, tasmota-commands-mqtt@workspace:packages/tasmota-commands-mqtt":
   version: 0.0.0-use.local
   resolution: "tasmota-commands-mqtt@workspace:packages/tasmota-commands-mqtt"
   dependencies:
@@ -9198,7 +9198,7 @@ __metadata:
     jest-junit: ^16.0.0
     mqtt: ^4.3.7
     prettier: ^2.8.7
-    tasmota-commands-core: ^0.3.0
+    tasmota-commands-core: ^0.4.0
     ts-jest: ^29.1.0
     typescript: ^5.0.4
   languageName: unknown
