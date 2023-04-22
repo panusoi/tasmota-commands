@@ -45,7 +45,7 @@ await commands.sendCommand('Light', 'Color', '255,0,0');
 // Get current wifi light color
 const color = await commands.sendCommand('Light', 'Color');
 
-// Get current divice state
+// Get current device state
 const state = await commands.sendCommand('Management', 'State');
 
 // Send any command with "Custom"
@@ -59,6 +59,17 @@ await commands.sendCommand('Custom', 'Sleep', 50);
   - Currently only a few command payloads are typed (`Power`, `CT`, `Dimmer`, `Color`, `HSBColor`)
 - Read Tasmota device state
 - Auto refresh state in the background
+- Homebridge plugin
+  - Presets
+    - Switch
+    - On/off
+  - Lightbulb
+    - On/off
+    - Brightness
+    - Brightness and Color Temperature
+    - RGB
+  - Custom
+    - Set device type and set characteristics
 
 ## Roadmap
 
@@ -68,10 +79,8 @@ await commands.sendCommand('Custom', 'Sleep', 50);
     - [ ] Improve types
     - [ ] Add validation
 - Http
-
   - [ ] Improve connection handling
   - [ ] Add more configuration options
-
 - Mqtt
   - [ ] Improve subscription management and Tasmota state handling
   - [ ] Add more configuration options
