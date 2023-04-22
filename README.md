@@ -6,7 +6,7 @@
 
 ## Overview
 
-`tasmota-commands` is a monorepo for node.js modules that allow you to easily control Tasmota devices. Still in early development, so only supports a few commands are supported.
+`tasmota-commands` is a monorepo for node.js modules that allow you to easily control Tasmota devices. Still in early development, so only a few commands are supported.
 
 ## Packages
 
@@ -25,74 +25,57 @@
 
 1. Install core package `npm install tasmota-commands-core` or `yarn add tasmota-commands-core`
 2. Install either the `tasmota-commands-http` or `tasmota-commands-mqtt` to send commands or create your custom [commandHandler](./packages/tasmota-commands-core/README.md#custom-command-handler).
-3. Create `TasmotaCommandsHttp` or `TasmotaCommandsMqtt` instance and start controlling your Tasmota device
+3. Create a `TasmotaCommandsHttp` or `TasmotaCommandsMqtt` instance and start controlling your Tasmota device
 
 ## Example usage
 
 1. Install packages `npm install tasmota-commands-core tasmota-commands-http`
 
-2. Create `TasmotaCommandsHttp` instance and send power command:
+2. Create a `TasmotaCommandsHttp` instance and start sending commands:
 
 ```javascript
 const commands = new TasmotaCommandsHttp({ address: '127.0.0.1' });
-commands.Control.setPower0('on');
+
+// Power up the device
+await commands.sendCommand('Control', 'Power0', 'on');
+
+// Change light color to red
+await commands.sendCommand('Light', 'Color', '255,0,0');
+
+// Get current wifi light color
+const color = await commands.sendCommand('Light', 'Color');
+
+// Get current divice state
+const state = await commands.sendCommand('Management', 'State');
+
+// Send any command with "Custom"
+await commands.sendCommand('Custom', 'Sleep', 50);
 ```
+
+## Features
+
+- Send commands to Tasmota device
+  - Supported protocols are http and mqtt
+  - Currently only a few command payloads are typed (`Power`, `CT`, `Dimmer`, `Color`, `HSBColor`)
+- Read Tasmota device state
+- Auto refresh state in the background
 
 ## Roadmap
 
-- Packages
-  - [ ] Core
-    - [ ] Commands
-      - [ ] Control
-        - [x] Power0
-        - [ ] More...
-      - [ ] Management
-        - [x] State
-        - [ ] More...
-      - [ ] Light
-        - [x] Dimmer
-        - [x] CT
-        - [x] Color<x>
-        - [x] HSBColor
-        - [x] HSBColor1
-        - [x] HSBColor2
-        - [x] HSBColor3
-        - [ ] More..
-      - [ ] More...
-    - [ ] State
-      - [x] Basic state management
-      - [ ] Better state management
-        - [ ] Correct typings
-        - [ ] Validation
-        - [ ] More..
-      - [x] Option to refresh state periodically in background
-  - [] Http
-    - [x] Basic http support
-    - [ ] More configuration options
-  - [] Mqtt
-    - [x] Basic mqtt support
-    - [ ] Better subscription management and Tasmota state handling
-    - [ ] More configuration options
-  - [ ] Homebridge plugin
-    - [x] Http support
-    - [x] Mqtt support (experimental)
-    - [x] Option to refresh state periodically in background
-    - [x] Switch
-      - [x] On/off
-    - [x] Lightbulb
-      - [x] On/off
-      - [x] Brightness
-      - [x] Brightness and Color Temperature
-      - [x] RGB
-    - [x] Custom
-      - [x] Set device type
-      - [x] Set characteristics
-- Other
-  - [ ] Update documentation
-  - [ ] Generated api documentation
-  - [x] Build CJS and ESM modules
-  - [x] Versioning management with [Changesets](https://github.com/changesets/changesets)
-  - [x] Add package exports integrity tests
+- Core
+  - [ ] More command payload types
+  - [ ] Improve state management
+    - [ ] Improve types
+    - [ ] Add validation
+- Http
+
+  - [ ] Improve connection handling
+  - [ ] Add more configuration options
+
+- Mqtt
+  - [ ] Improve subscription management and Tasmota state handling
+  - [ ] Add more configuration options
+- [ ] Update readme and documentation
 
 ## Contribution
 
