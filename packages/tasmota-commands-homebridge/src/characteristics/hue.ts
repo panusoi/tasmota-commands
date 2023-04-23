@@ -21,7 +21,8 @@ const createHueListener: CreateCharacteristicListener = ({
         return;
       }
 
-      commands.Light.setHSBColor1(value)
+      commands
+        .sendCommand('Light', 'HSBColor1', value)
         .then((response) => {
           if (response?.HSBColor && isHSB(response?.HSBColor)) {
             callback(HAPStatus.SUCCESS);

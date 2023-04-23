@@ -14,7 +14,8 @@ const createOnListener: CreateCharacteristicListener = ({
   verbose && logger.debug("Creating 'On' characteristic listener");
   return {
     set: (value, callback) => {
-      commands.Control.setPower0(value === true ? 'on' : 'off')
+      commands
+        .sendCommand('Control', 'Power0', value === true ? 'on' : 'off')
         .then((response) => {
           if (response?.POWER) {
             callback(HAPStatus.SUCCESS);

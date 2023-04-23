@@ -21,7 +21,8 @@ const createSaturationListener: CreateCharacteristicListener = ({
         return;
       }
 
-      commands.Light.setHSBColor2(value)
+      commands
+        .sendCommand('Light', 'HSBColor2', value)
         .then((response) => {
           if (response?.HSBColor && isHSB(response?.HSBColor)) {
             callback(HAPStatus.SUCCESS);
