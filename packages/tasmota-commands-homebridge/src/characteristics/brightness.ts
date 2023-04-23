@@ -21,7 +21,8 @@ const createBrightnessListener: CreateCharacteristicListener = ({
         return;
       }
 
-      commands.Light.setDimmer(value)
+      commands
+        .sendCommand('Light', 'Dimmer', value)
         .then((response) => {
           if (response?.Dimmer && isValidBrightness(response?.Dimmer)) {
             callback(HAPStatus.SUCCESS);

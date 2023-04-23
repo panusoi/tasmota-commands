@@ -28,7 +28,8 @@ const createColorTemperatureListener: CreateCharacteristicListener = ({
         return;
       }
 
-      commands.Light.setColorTemperature(tasmotaCTValue)
+      commands
+        .sendCommand('Light', 'CT', tasmotaCTValue)
         .then((response) => {
           if (response?.CT) {
             const homebridgeCTValue = convertTasmotaColorTemperatureForHomebridge(response.CT);
