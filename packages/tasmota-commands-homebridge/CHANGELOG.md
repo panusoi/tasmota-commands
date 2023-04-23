@@ -1,5 +1,11 @@
 # homebridge-tasmota-commands
 
+## 0.3.0
+
+### Minor Changes
+
+- f12d8e8: change to use the new `sendCommand` method
+
 ## 0.2.1
 
 ### Patch Changes
