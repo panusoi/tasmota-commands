@@ -1,6 +1,6 @@
 # Tasmota Commands
 
-## NOTE: Still under development, the first stable version will be version 1.0.0
+## NOTE: Repo is archived. I recommend using https://www.home-assistant.io/integrations/tasmota/ instead.
 
 [![Release](https://github.com/panusoi/tasmota-commands/actions/workflows/release.yml/badge.svg)](https://github.com/panusoi/tasmota-commands/actions/workflows/release.yml) [![Testing CI](https://github.com/panusoi/tasmota-commands/actions/workflows/testing.yml/badge.svg)](https://github.com/panusoi/tasmota-commands/actions/workflows/testing.yml)
 
